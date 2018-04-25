@@ -1,0 +1,143 @@
+
+.well hr {
+	margin: 20px -20px;
+	border-color: #ddd;
+}
+
+.margin-right-10 {
+	margin-right: 10px !important;
+}
+
+.margin-left-10 {
+	margin-left: 10px !important;
+}
+
+.margin-bottom-10 {
+	margin-bottom: 10px !important;
+}
+
+.margin-bottom-15 {
+	margin-bottom: 15px !important;
+}
+
+.form-group.row > .control-label {
+	padding-top: 7px;
+	padding-bottom: 7px;
+}
+
+.flex {
+	display: -webkit-box; 
+	display: -moz-box;
+	display: -ms-flexbox;
+	display: -webkit-flex; 
+	display: flex;
+}
+
+.flex-fill {
+	-webkit-box-flex:1;
+	-ms-flex:1 0 auto;
+	flex:1 0 auto;
+}
+
+.flex-align-center {
+	-webkit-box-align: center;
+	-moz-box-align: center;
+	-ms-flex-align: center;
+	-webkit-align-items: center;
+	align-items: center;
+}
+
+.form-control.auto {
+	width: auto;
+}
+
+.row.condensed {
+	margin-left: -5px;
+	margin-right: -5px;
+}
+
+.row.condensed> div {
+	padding-left: 5px;
+	padding-right: 5px;
+}
+
+.list-group-item-content {
+	overflow: hidden;
+}
+
+.list-group-item-text {
+	margin-top: 5px;
+}
+
+.input-group-addon + .form-control {
+	margin-left: -1px;
+}
+
+.modal .well {
+	border-color: transparent;
+	box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+}
+
+.fileinput {
+	margin-bottom: 0;
+}
+
+
+
+/*
+	NAVBAR 
+*/
+
+.navbar {
+	border-radius: 0;
+	border: 0;
+	background-color: #012844;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+	color: rgba(255,255,255,0.7);
+}
+
+.navbar-brand img {
+	height: 26px;
+}
+
+/*
+	BUTTON TOGGLE
+*/
+
+.btn-group[data-toggle="buttons"] .btn-default.active {
+	color: #fff;
+	background-color: #337ab7;
+  border-color: #2e6da4;
+}
+
+
+
+
+/*
+	UPLOAD OPTIONS
+*/
+
+.upload-options-tabs {
+	margin: -15px -20px 20px;
+	padding: 0 20px;
+}
+
+.upload-options-tabs>li>a {
+	border-color: transparent;
+}
+
+.upload-options-tabs>li>a:hover, 
+.upload-options-tabs>li>a:focus {
+	background: transparent;
+	border-color: transparent;
+}
+
+.upload-options-tabs>li.active>a,
+.upload-options-tabs>li.active>a:hover, 
+.upload-options-tabs>li.active>a:focus {
+	border-color: transparent;
+	background: transparent;
+	border-bottom-color: #2e6da4;
+}

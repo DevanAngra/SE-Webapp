@@ -1,0 +1,1759 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <!-- Favicons -->
+  <link rel="shortcut icon" type="image/png" href="../assets/images/favicon-180.png"/>
+  <link rel="apple-touch-icon" href="../assets/images/favicon-180.png">
+
+  <title>SEWebApp</title>
+
+  <!-- Bootstrap core CSS
+  <link href="/assets/libs/bootstrap-3.3.7-dist/css/bootstrap.min.css" rel="stylesheet"> -->
+
+  <!-- FontAwesome CSS
+  <link href="/assets/libs/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet"> -->
+
+  <!-- Custom CSS -->
+  <!-- player CSS -->
+  <link href="https://unpkg.com/voicebase-player@0.0.6/lib/styles.css" rel="stylesheet">
+
+
+  <!-- this script just holds the old credential php information as global variables, should be able to remove this at some point -->
+  <script>
+    window.globalpagetotal = 6;
+  </script>
+
+  <!-- for player -->
+  <link rel="stylesheet" href="https://player.demo.voicebase.com/node_modules/@voicebase/player/lib/styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+  <!-- end for player -->
+
+
+
+	<!-- DATEPICKER -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css" />		
+	
+	<!-- JASNY BOOTSTRAP PLUGIN (FOR INPUT FIELD) -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" />
+
+	<!-- UPDATED CSS FROM JACK -->
+  <link href="../assets/css/jackupdates.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-inverse">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">
+        <img alt="VoiceBase" src="../assets/images/logo.png">
+      </a>
+    </div>
+    <ul class="nav navbar-nav navbar-right">
+        
+        <!-- bwd sbs -->
+      <li><span style="color: rgba(255,255,255,0.7); position: relative; display: block; padding: 15px 15px;" onclick="sidebyside()">Side by Side</span></li>
+      <li><span style="color: rgba(255,255,255,0.7); position: relative; display: block; padding: 15px 15px;" onclick="singleplayermode()">Single Player Mode</span></li>
+      <li><a href="javascript:history.go(0)">Change Bearer Token</a></li>
+    </ul>
+  </div>
+</nav>
+
+      <div id="popupbox" style="padding-bottom: 300px; padding-top: 50px; padding-left: 100px; padding-right: 100px; height: 100%; z-index: 999; position: absolute; top: 0px; background-color: #fff; width: 100%" class="panel panel-default panel-accordion">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Account Credentials</strong></h3>
+          <p class="text-muted"><small>Submit your bearer token to populate the app:</small></p>
+          <form name="vbbearer" id="vbbearer" method="post" enctype="multipart/form-data" action="">
+            <div class="input-group">
+              <input type="password" class="form-control" name="bearertoken" id="bearertoken" value="" placeholder="">
+              <span class="input-group-btn">
+                      <button class="btn btn-default" type="submit">Submit</button>
+            			  </span>
+            </div>
+          </form>
+          <span id="btmessage"></span>
+        </div>
+      </div>
+
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 sidebar" id="col-md-3 sidebar">
+      <div style="height: 10px"></div>
+      <h3 class="sidebar-title">Upload Recordings</h3>
+      <p>Choose from a broad list of configuration options and add a new recording. </p>
+      <!--
+      <button class="btn btn-success collapsed" data-toggle="collapse" data-target="#addRecording" id="addRecordingButton">
+        <i class="fa fa-plus"></i>
+        Add new Recording
+      </button>
+      -->
+      <button class="btn btn-success" data-toggle="modal" data-target="#addRecordingModal">
+        <i class="fa fa-plus"></i>
+        Add new Recording
+      </button>
+      <div style="height: 5px"></div>
+      <hr>
+      <div style="height: 5px"></div>
+    
+      <div style="height: 10px"></div>
+      <h3 class="sidebar-title">MediaId Lookup</h3>
+      <p>Open jobs by MediaId. </p>
+      <button class="btn btn-default collapsed" data-toggle="collapse" data-target="#ByMediaId" id="ByMediaIdButton">
+        <i class="fa fa-plus"></i>
+        Show MediaId Search
+      </button>
+      <div style="height: 5px"></div>
+      <hr>
+      <div style="height: 5px"></div>
+      
+      <div style="height: 10px"></div>
+      <h3 class="sidebar-title">Version Notes</h3>
+      <p>Read notes about the version of this app. </p>
+      <button class="btn btn-default collapsed" data-toggle="collapse" data-target="#versionNotes" id="versionNotesButton">
+        <i class="fa fa-plus"></i>
+        Read
+      </button>
+    
+    </div>
+ 
+    <div class="col-md-9 content" id="col-md-9 content">
+        
+        <div style="margin-top: 20px" id="dasplayer"></div>
+
+      <br />
+
+
+			<div class="modal fade" id="addRecordingModal">
+				<div class="modal-dialog">
+		      <div class="well">
+		          <form name="vbupload" id="vbupload" method="post" enctype="multipart/form-data" action="">
+		            <div>
+
+		
+									<div class="flex flex-align-center">
+										<div> 
+											<div class="fileinput fileinput-new" data-provides="fileinput">
+											  <span class="btn btn-default btn-file">
+											  	<span class="fileinput-new">Choose file from your computer</span>
+											  	<span class="fileinput-exists fileinput-filename">Change</span>
+											  	<input type="file" id="uploadFileFile" name="uploadFileFile" class="uploadFileFileClass">
+											  </span>
+											  <a href="#" class="btn btn-link close fileinput-exists" data-dismiss="fileinput">&times;</a>
+											</div>                  
+										</div>
+										<span class="text-muted margin-left-10 margin-right-10">or</span>
+										<div class="flex-fill">
+											<input id="uploadFileUrl" type="text" placeholder="Upload via URL" class="form-control"/>
+										</div>
+									</div>
+
+									
+		            <hr>
+		            
+		            
+		            <ul class="nav nav-tabs upload-options-tabs">
+			            <li class="active"><a data-toggle="tab" href="#optionsTranscript">Transcript</a></li>
+			            <li><a data-toggle="tab" href="#optionsKeywords">Keywords</a></li>
+			            <li><a data-toggle="tab" href="#optionsRedaction">Redaction</a></li>
+			            <li><a data-toggle="tab" href="#optionsAnalytics">Analytics</a></li>
+			            <li><a data-toggle="tab" href="#optionsMetadata">Metadata</a></li>
+			            <li><a data-toggle="tab" href="#optionsCallbacks">Callbacks</a></li>
+		            </ul>
+		
+							  <div class="tab-content">
+							    <div class="tab-pane fade in active" id="optionsTranscript">
+										<div class="form-group row">
+				              <label class="control-label col-sm-3">Language</label>
+				              <div class="col-sm-9">
+				                <select class="form-control auto" name="language" id="language">
+				              	  <option value="en-US">US English</option>
+				              	  <option value="en-UK">UK English</option>
+				              	  <option value="en-AU">Australian English</option>
+				              	  <option value="pt-BR">Portuguese Brazilian</option>
+				              	  <option value="es-LA">Spanish Latin America</option>
+				                </select>
+				                <p class="help-block"><small>US English has full feature support. UK English and AU English have partial feature support. Portuguese and Spanish have only the transcript support.</small></p>
+				              </div>
+				            </div>
+				            
+				            
+							<div class="form-group row">
+							 <label class="control-label col-sm-3">Numbers to Symbols</label>
+				              <div class="col-sm-9">
+				                <div class="checkbox">
+				                  <label>
+				                    <input name="symbols" id="symbols" type="checkbox" checked="">
+				                    Turn number words to  number symbols
+				                  </label>
+				                </div>
+								</div>
+								</div>
+				            
+				            
+				            <div class="form-group row">
+				              <label class="control-label col-sm-3">Channels</label>
+				              <div class="col-sm-9">
+				                  <p class="help-block"><small>Is your audio a stereo recording where parties are separated by channel (typical for telephony)? If yes, check stereo and enter the speakers on the left and right channels, for example caller and agent. If no, leave as mono (most videos, lectures, etc.)</small></p>
+				                <div class="btn-group" data-toggle="buttons">
+				                  <label id="mono-label" class="btn btn-default" onclick="switchMono()">
+				                    <input type="radio" name="mono" value="mono" id="stereo" autocomplete="off"> Mono
+				                  </label>
+				                  <label id="stereo-label" onclick="switchStereo()" class="btn btn-default active">
+				                  	<input type="radio" name="stereo" value="stereo" id="stereo" autocomplete="off" checked=""> Stereo
+													</label>
+				                </div>
+				              </div>
+				            </div>		
+				            <div class="form-group row">
+				              <label class="control-label col-sm-3">Channel speakers</label>
+				              <div class="col-sm-9">
+				                <div class="row condensed">
+					                <div class="col-sm-6">
+														<input type="text" name="channel1" id="channel1" class="form-control" placeholder="Left Channel Speaker">
+					                </div>
+					                <div class="col-sm-6">
+														<input name="channel2" id="channel2" class="form-control" placeholder="Right Channel Speaker">
+					                </div>
+				                </div>
+				              </div>
+				            </div>				            				    
+							    </div>
+							    <div class="tab-pane fade" id="optionsKeywords">
+				            <div class="form-group">
+				              <label class="control-label">Adhoc Custom Vocabulary</label>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="cvterm1" id="cvterm1" class="form-control" placeholder="Enter CV word or phrase">
+					              </div>
+					              <div class="col-sm-4">
+						              <input type="text" name="cvsounds1" id="cvsounds1" class="form-control" placeholder="Enter a Sounds Like Term">
+					              </div>
+					              <div class="col-sm-3">
+						              <select class="form-control" name="cvweight1" id="cvweight1">
+							              <option>0</option>
+							              <option>1</option>
+							              <option>2</option>
+							              <option>3</option>
+							              <option>4</option>
+							              <option>5</option>
+						              </select>
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="cvterm2" id="cvterm2" class="form-control" placeholder="Enter CV word or phrase">
+					              </div>
+					              <div class="col-sm-4">
+						              <input type="text" name="cvsounds2" id="cvsounds2" class="form-control" placeholder="Enter a Sounds Like Term">
+					              </div>
+					              <div class="col-sm-3">
+						              <select class="form-control" name="cvweight2" id="cvweight2">
+							              <option>0</option>
+							              <option>1</option>
+							              <option>2</option>
+							              <option>3</option>
+							              <option>4</option>
+							              <option>5</option>
+						              </select>
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="cvterm3" id="cvterm3" class="form-control" placeholder="Enter CV word or phrase">
+					              </div>
+					              <div class="col-sm-4">
+						              <input type="text" name="cvsounds3" id="cvsounds3" class="form-control" placeholder="Enter a Sounds Like Term">
+					              </div>
+					              <div class="col-sm-3">
+						              <select class="form-control" name="cvweight3" id="cvweight3">
+							              <option>0</option>
+							              <option>1</option>
+							              <option>2</option>
+							              <option>3</option>
+							              <option>4</option>
+							              <option>5</option>
+						              </select>
+					              </div>
+				              </div>
+			                <p class="help-block"><small>The VoiceBase API allows for up to 1000 words or phrases to be added. These can be words the engine does not already know, or words it already knows that you want to give additional preference to be transcribed. A sounds-like term helps the engine understand what your custom term or phrase sounds like. Good practice is to use a word that the default speech engine mistranscribes your word as. A weight can also be added, default is 0 which give slight preferential treatment, 5 gives a lot of preferential treatment.</small></p>
+			                <p class="help-block"><small><strong class="text-success">Good</strong>: Bryon | Brian | 0</small>
+			                <br /><small><strong class="text-success">Good</strong>: VoiceBase | Voice Space | 2</small>
+			                <br /><small><strong class="text-success">Good</strong>: Welcome to VoiceBase | Welcome to Voice Space | 1</small>
+			                <br><small><strong class="text-danger">Bad:</strong> Bryon | Brian | 6 (6 is not allowed, options are 0, 1, 2, 3, 4, 5)</small></p>
+				            </div>
+				            <div class="form-group row">
+				              <label class="control-label col-sm-3">Custom Vocabulary List</label>
+				              <div class="col-sm-9">
+				                <textarea style="width: 100%" name="cvlist" id="cvlist" class="form-control" rows="1" placeholder="Enter a Pre-Defined CV List Name"></textarea>
+				                <p class="help-block"><small>A pre-defined Custom Vocabulary List name. You can use the VoiceBase API to create and store a <a href="http://voicebase.readthedocs.io/en/v3/how-to-guides/custom-vocabulary.html">Custom Vocabulary List.</a></small></p>
+				              </div>
+				            </div>
+				            <div class="form-group row">
+				              <label class="control-label col-sm-3">Keyword Spotting List</label>
+				              <div class="col-sm-9">
+				                <textarea style="width: 100%" name="kwlist" id="kwlist" class="form-control" rows="1" placeholder="Enter a Pre-Defined Phrase Spotting List Name"></textarea>
+				                <p class="help-block"><small>A pre-defined Keyword Spotting List Name. You can use the VoiceBase API to create and store a <a href="http://voicebase.readthedocs.io/en/v3/how-to-guides/keyword-spotting.html">Keyword Spotting List.</a></small></p>
+				              </div>
+				            </div>
+				            <!--<div class="form-group row">
+				              <label class="control-label col-sm-3">Predictive Model ID</label>
+				              <div class="col-sm-9">
+				                <textarea name="predictivemodel" id="predictivemodel" class="form-control" placeholder="Enter a predictive model ID - model name will not work"></textarea>
+				<p class="help-block"><small>Here is a sample ID bd35a528-1b8d-467f-a18c-0af1203baa8a</small></p>
+				              </div>
+				              <label class="control-label col-sm-3">Predictive Model Name</label>
+				              <div class="col-sm-9">
+				                <textarea name="predictivemodelname" id="predictivemodelname" class="form-control" placeholder="Enter a predictive model name - model ID will not work"></textarea>
+				<p class="help-block"><small>Here is a sample name PLACEHOLDER</small></p>
+				              </div>
+				            </div>-->					    
+							    </div>
+							    <div class="tab-pane fade" id="optionsRedaction">
+				            <div class="row">
+				              <label class="control-label col-sm-3">Redaction Options</label>
+				              <div class="col-sm-9">
+					              <div class="form-group">
+					                <label class="control-label">Redact all numbers</label>
+					                <select class="form-control auto" name="Numbersdetect" id="Numbersdetect">
+					              	  <option value="Off">Off</option>
+					              	  <option value="Number">All Numbers Detection and Redaction</option>
+					                </select>
+					              </div>
+					              <div class="form-group">
+					                <label class="control-label">Redact Payment Card Information</label>
+					                <select class="form-control auto" name="PCIdetect" id="PCIdetect">
+					              	  <option value="Off">Off</option>
+					              	  <option value="PCI">PCI Detection and Redaction</option>
+					                </select>
+					              </div>
+					              <div class="form-group">
+					                <label class="control-label">Redact Social Security Numbers</label>
+					                <select class="form-control auto" name="SSNdetect" id="SSNdetect">
+					              	  <option value="Off">Off</option>
+					              	  <option value="SSN">SSN Detection and Redaction</option>
+					                </select>
+					              </div>
+					              <div class="form-group">
+					                <label class="control-label">Redact Personal Identifiable Information</label>
+					                <select class="form-control auto" name="PIIdetect" id="PIIdetect">
+					              	  <option value="Off">Off</option>
+					              	  <option value="PII">PII Detection and Redaction</option>
+					                </select>
+				                </div>
+												<p class="help-block"><small>PCI - Payment Card Information</small>
+												<br /><small>SSN - Social Security Number</small>
+												<br /><small>PII - Personal Identifiable Information</small>
+												<br /><small>All Numbers - All numbers: one, two, three, fifty, one hundred, etc.</small>
+												<br /><small>When enabled, these models will return start and stop times of utterances. The utterances will also be removed from the audio at VoiceBase and replaced with a tone which can be downloaded using an additional VoiceBase API call.</small></p>
+				              </div>
+				            </div>
+				            <div class="form-group row">
+				              <label class="control-label col-sm-3">Other options</label>
+				              <div class="col-sm-9">
+				                <div class="checkbox">
+				                  <label>
+				                    <input name="swear" id="swear" type="checkbox" checked="">
+				                    Swear Word Filter
+				                  </label>
+				                </div>
+				              </div>
+				            </div>
+				            </div>
+				            
+							    <!-- bwd analytics -->
+							    <div class="tab-pane fade" id="optionsAnalytics">
+							        				            <div class="form-group row">
+							 <label class="control-label col-sm-3">Other options</label>
+				              <div class="col-sm-9">
+				                <div class="checkbox">
+				                  <label>
+				                    <input name="knowledge" id="knowledge" type="checkbox" value='enabled' checked="">
+				                    Keywords and Topics (Knowledge)
+				                  </label>
+				                </div>
+								</div>
+								</div>
+												            <div class="form-group row">
+				              <label class="control-label col-sm-3">Predictive Model ID</label>
+				              <div class="col-sm-9">
+				                <textarea name="predictivemodel" id="predictivemodel" class="form-control" placeholder="Enter a predictive model ID - model name will not work"></textarea>
+				<p class="help-block"><small>Here is a sample ID bd35a528-1b8d-467f-a18c-0af1203baa8a</small></p>
+				              </div>
+				              <label class="control-label col-sm-3">Predictive Model Name</label>
+				              <div class="col-sm-9">
+				                <textarea name="predictivemodelname" id="predictivemodelname" class="form-control" placeholder="Enter a predictive model name - model ID will not work"></textarea>
+				<p class="help-block"><small>Here is a sample name PLACEHOLDER</small></p>
+				              </div>
+				            </div>	
+				            								</div>
+
+							    							    <!-- bwd analytics-->
+
+							    
+							    <div class="tab-pane fade" id="optionsMetadata">
+										<div class="form-group row">
+				              <label class="control-label col-sm-3">Metadata</label>
+				              <div class="col-sm-9">
+				                <textarea name="externalid" id="externalid" class="form-control" rows="1" cols="2" placeholder="Your Own Job ID"></textarea>
+				                <p class="help-block"><small>VoiceBase allows you to assign your own ID to a job. Uniqueness is not enforced on the VoiceBase side.</small></p>
+				                
+				                <div class="row condensed margin-bottom-10">
+					                <div class="col-sm-6">
+						                <input type="text" class="form-control" name="key1" id="key1" placeholder="Key">
+					                </div>
+					                <div class="col-sm-6">
+						                <input type="text" class="form-control" name="value1" id="value1" placeholder="Value">
+					                </div>
+				                </div>
+				                
+				                <div class="row condensed margin-bottom-10">
+					                <div class="col-sm-6">
+						                <input type="text" class="form-control" name="key2" id="key2" placeholder="Key">
+					                </div>
+					                <div class="col-sm-6">
+						                <input type="text" class="form-control" name="value2" id="value2" placeholder="Value">
+					                </div>
+				                </div>
+				                
+				                <div class="row condensed margin-bottom-10">
+					                <div class="col-sm-6">
+						                <input type="text" class="form-control" name="key3" id="key3" placeholder="Key">
+					                </div>
+					                <div class="col-sm-6">
+						                <input type="text" class="form-control" name="value3" id="value3" placeholder="Value">
+					                </div>
+				                </div>
+				                <p class="help-block"><small>Any Metadata you enter is returned with job results.</small></p>
+				              </div>
+				            </div>						    
+							    </div>
+							    <div class="tab-pane fade" id="optionsCallbacks">
+				            <div class="form-group row">
+				              <label class="control-label col-sm-3">Callbacks</label>
+				              <div class="col-sm-9">
+				                <textarea name="callbackurl" id="callbackurl" rows="1" cols="2" class="form-control" placeholder="Enter a full callback url starting with http:// or https://"></textarea><div style="height: 10px"></div>
+				                <div class="btn-group" data-toggle="buttons">			                
+					                <label id="post-label" class="btn btn-default active">
+					                	<input type="radio" name="callbackmethod" value="POST" id="callbackmethod" autocomplete="off" checked=""> POST
+					                </label>
+					                <label id="put-label" class="btn btn-default">
+					                	<input type="radio" name="callbackmethod" value="PUT" id="callbackmethod" autocomplete="off"> PUT
+					                </label>
+					              </div>
+					              <p class="help-block"><small>VoiceBase Supports Polling and Callbacks. You can enter a callback url here or leave blank. If you plan to use the VoiceBase Zapier app trigger then you must set the callback to the Zapier supplied static webhook. We recommend creating your trigger first if you are planning to run a trigger and action. POST and PUT are supported methods. Use POST for Zapier. </small></p>
+				               </div>
+				             </div>
+				          
+							    
+							    </div>
+							  </div>
+		
+		          </div>
+								<hr>
+		            <div class="form-group row">
+			            <label class="control-label col-sm-3">Custom Configuration</label>
+			            <div class="col-sm-9">
+										<input name="pass" value="pass" type="hidden">
+				            <div class="input-group">
+			              	<input class="form-control" id="configuration" type="text" placeholder="{{'example':'example'}}" />
+			              	<span class="input-group-btn">
+			              		<button type="button" onclick="myConfigurationFunction()" value="CSubmit" class="btn btn-default">Apply Custom Configuration</button>		                
+			              	</span>
+				            </div>
+			              <p class="help-block"><small>Click apply custom configuration to apply the options above, or you can add your own configuration JSON here. </small></p>
+			            </div>
+			          </div>
+			          <div class="form-group row">
+			            <label class="control-label col-sm-3">Custom Metadata</label>
+			            <div class="col-sm-9">
+										<input name="pass" value="pass" type="hidden">
+				            <div class="input-group">
+			              	<input class="form-control" id="metadata" type="text" placeholder="{{'example':'example'}}" />
+			              	<span class="input-group-btn">
+			              		<button type="button" onclick="myMetadataFunction()" value="MSubmit" class="btn btn-default">Apply Custom Metadata</button>	                
+			              	</span>
+				            </div>
+			              <p class="help-block"><small>Click apply custom metadata to apply the options above, or you can add your own metadata JSON here. </small></p>
+			            </div>
+			          </div>	
+		            <div class="row">
+		              <div class="col-sm-9 col-sm-offset-3">
+		                <input type="submit" class="btn btn-success" value="Upload">
+		                <button class="btn btn-link" type="button" data-dismiss="modal">Cancel</button>
+		              </div>
+		            </div>
+		          </form>
+		      </div>						
+				</div>
+			</div>
+
+         
+         
+      <!-- Version Notes -->
+      <div class="collapse" id="versionNotes">
+        <div class="well">
+            <h3>Version 1.0</h3>
+            <h5>Warnings</h5>
+            <ul>
+                <li>Starring Changes ExternalId</li>
+                <ul>
+                    <li>"Starring" a job will change the metadata externalId on the job to this randomized string "bwd524t8g9piunf42tv3978qiuo34t8h98pweurqfn895824t". Unstarring a job will change the metadata externalId on the job to this randomized string "bwd524t8g9piunf42tv3978qiuo34t8h98pweurqfn895824b".</li>
+                    <li>We recommend using the SEWebapp with testing accounts only. If there is a need to use the SEWebapp for production use, it is recommended to remove the star feature.</li>
+                </ul>
+            </ul>
+            <h5>App Currently Supported Features</h5>
+            <ul>
+                <li>Upload</li>
+                <ul>
+                    <li>Upload by Recording Url</li>
+                    <li>Config Generator Integrated</li>
+                </ul>
+                <li>Configuration Generator</li>
+                <li>Player</li>
+                <ul>
+                    <li>Side-by-side job comparison</li>
+                </ul>
+                <li>Global Search</li>
+                <ul>
+                    <li>Search with date filter in UTC</li>
+                    <li>Search by keyword</li>
+                    <li>Search by phrase</li>
+                </ul>
+                <li>Delete</li>
+            </ul>
+            <h5>App Roadmap Features</h5>
+            <ul>
+                <li>Search</li>
+                <ul>
+                    <li>Search by Metadata</li>
+                </ul>
+                <li>Create new phrase spotting lists (applying lists is currently supported at upload)</li>
+                <li>Create custom vocabulary lists (applying lists is currently supported at upload)</li>
+            </ul>
+            <h5>App Roadmap Improvements</h5>
+            <ul>
+                <li>Search</li>
+                <ul>
+                    <li>Allow user to add and subtract metadata fields</li>
+                </ul>
+            </ul>
+            <h5>App Known Bugs</h5>
+             <ul>
+                <li>After uploading, user must wait 5 - 10 seconds for response. Progress bar to be added.</li>
+                <li>Metadata search filter to be added.</li>
+            </ul>
+            <h5>Feature Request</h5>
+            <ul>
+                <li>Please send all feature requests to sales-engineers@voicebase.com</li>
+            </ul>
+            </div>
+         </div>
+         
+
+      <div class="collapse" id="modifySettings">
+        <div class="well">
+
+          <form name="appsettings" id="appsettings" method="post" enctype="multipart/form-data" action="">
+            <div class="form-horizontal">
+
+              <div class="form-group">
+                <label class="control-label col-sm-4">Pagination</label>
+                <div class="col-sm-8">
+                  <input id="pagination" type="text" placeholder="Minimum 1, Maximum 20" />
+                </div>
+              </div>
+
+              <hr>
+              <div class="form-group">
+                <div class="col-sm-8 col-sm-offset-4">
+                  <input type="submit" class="btn btn-success" value="Modify">
+
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#modifySettings">Cancel</button>
+                </div>
+              </div>
+
+            </div>
+          </form>
+
+        </div>
+      </div>
+      
+
+      <!-- BWD new search -->
+      
+      
+    <div class="collapse" id="ByMediaId">
+        <div style="height: 15px"></div>
+      <div style="margin-bottom: 0px" class="panel panel-default panel-accordion">
+        <div class="panel-heading">
+         <h3 class="panel-title"><strong>Show job by MediaId</strong></h3>
+          <p class="text-muted"><small>Enter a MediaId to show that job in the player.</small></p>
+            <form name="vbMediaId" method="post" id="vbMediaId" enctype="multipart/form-data" action="">
+            <div class="form-group">
+	            <div class="input-group">
+	              <input class="form-control" name="vbMediaId" id="vbMediaIdField" value="" placeholder="VoiceBase MediaId">
+	              <span class="input-group-btn">
+	                <button class="btn btn-default" type="submit">Open in Player</button>
+	      			  </span>
+	            </div>
+            </div>
+            </form>
+         </div>
+         </div>
+         </div>
+         
+      <div style="height: 15px"></div>
+
+      <div style="margin-bottom: 0px" class="panel panel-default panel-accordion">
+        <div class="panel-heading">
+          <h3 class="panel-title"><strong>Account Search</strong></h3>
+          <p class="text-muted"><small>Show recordings where the following words or phrases were mentioned at least once:</small></p>
+          <form name="vbsearch" method="post" id="vbsearch" enctype="multipart/form-data" action="">
+            <div class="form-group">
+	            <div class="input-group">
+	              <input class="form-control" name="search" id="searchfield" value="" placeholder="Search recordings...">
+	              <span class="input-group-btn">
+	                <button class="btn btn-default" type="submit">Search</button>
+	      			  </span>
+	            </div>
+            </div>
+            <div class="clearfix">
+	            <div class="input-group pull-left" style="width: 300px;">
+		            <input id="afterdate" type="text" class="form-control datepicker" placeholder="Start date" data-provide="datepicker" data-date-clear-btn="true">
+		            <span class="input-group-addon">to</span>
+		            <input id="beforedate" type="text" class="form-control datepicker" placeholder="End date" data-provide="datepicker" data-date-clear-btn="true">
+	            </div>
+              <select id="resultstodisplay" name="resultstodisplay" class="form-control auto pull-right">
+                <option selected="selected" value="5">5 results per page</option>
+                <option value="10">10 results per page</option>
+                <option value="20">20 results per page</option>
+                <option value="50">50 results per page</option>
+                <option value="100">100 results per page</option>
+              </select>	 
+              <div style="height: 10px"></div>
+            </div>
+            <div style="height: 13px"></div>
+           <button type='button' data-toggle='tooltip' title='Show Important' onclick='showstarimportant'><i id='showstarimportant' class='fa fa-star'></i></button>   <input type="checkbox" id="starred" name="starred" value="yes">
+          </form>
+        </div>
+
+        <!-- BWD new SEARCH End -->
+
+        <!-- BWD print the jobs in JS -->
+        <span id="morejobs"></span>
+        
+				<div id="thejobcontainers" class="list-group">
+					<div class="list-group-item">
+						<div class="pull-left margin-right-10">
+				    	<i id="status_icon_0" class="fa fa-fw fa-refresh fa-spin text-muted"></i>
+						</div>
+					  <button onclick="deletejob(0)" type="button" class="btn btn-link btn-delete pull-right margin-right-10" data-toggle="tooltip" title="Delete">
+					  	<i class="fa fa-trash"></i>
+					  </button>
+				    <div class="list-group-item-content">
+					    <h4 class="list-group-item-heading collapsed">
+						    <a data-toggle="collapse" onclick="display(0)" href="#voicemail-0" aria-expanded="false">
+							    7df7243e-037b-4b6f-90b9-9361a9c91ff7
+						    </a>
+						  </h4>
+						  <p class="list-group-item-text">
+						    Untitled					  
+						  </p>
+						  <p class="list-group-item-text text-muted">
+						    2018-03-06T10:24:56.568Z					  
+						  </p>					    
+				    </div>
+					</div>
+			    <div class="collapse" id="voicemail-0" aria-expanded="false">
+			      <div class="panel-body">
+			        <div id="playerspot0"></div>
+			      </div>
+			    </div>
+			    <div class="list-group-item">
+						<div class="pull-left margin-right-10">
+				    	<i id="status_icon_0" class="fa fa-fw fa-refresh fa-spin text-muted"></i>
+						</div>
+					  <button onclick="deletejob(1)" type="button" class="btn btn-link btn-delete pull-right margin-right-10" data-toggle="tooltip" title="Delete">
+					  	<i class="fa fa-trash"></i>
+					  </button>
+				    <div class="list-group-item-content">
+					    <h4 class="list-group-item-heading collapsed">
+						    <a data-toggle="collapse" onclick="display(1)" href="#voicemail-1" aria-expanded="false">
+							    7df7243e-037b-4b6f-90b9-9361a9c91ff7
+						    </a>
+						  </h4>
+						  <p class="list-group-item-text">
+						    Untitled					  
+						  </p>
+						  <p class="list-group-item-text text-muted">
+						    2018-03-06T10:24:56.568Z					  
+						  </p>					    
+				    </div>
+					</div>
+			    <div class="collapse" id="voicemail-1" aria-expanded="false">
+			      <div class="panel-body">
+			        <div id="playerspot0"></div>
+			      </div>
+			    </div>
+			    
+			    <!-- i think -->
+			    <div class="list-group-item">
+						<div class="pull-left margin-right-10">
+				    	<i id="status_icon_0" class="fa fa-fw fa-refresh fa-spin text-muted"></i>
+						</div>
+					  <button onclick="deletejob(2)" type="button" class="btn btn-link btn-delete pull-right margin-right-10" data-toggle="tooltip" title="Delete">
+					  	<i class="fa fa-trash"></i>
+					  </button>
+				    <div class="list-group-item-content">
+					    <h4 class="list-group-item-heading collapsed">
+						    <a data-toggle="collapse" onclick="display(2)" href="#voicemail-2" aria-expanded="false">
+							    7df7243e-037b-4b6f-90b9-9361a9c91ff7
+						    </a>
+						  </h4>
+						  <p class="list-group-item-text">
+						    Untitled					  
+						  </p>
+						  <p class="list-group-item-text text-muted">
+						    2018-03-06T10:24:56.568Z					  
+						  </p>					    
+				    </div>
+					</div>
+					<!-- i think -->
+					
+			    <div class="collapse" id="voicemail-2" aria-expanded="false">
+			      <div class="panel-body">
+			        <div id="playerspot0"></div>
+			      </div>
+			    </div>
+				</div>
+
+</div></div>
+
+
+<!-- Side by Side bwd sbs second panel -->
+			<div class="col-md-10 content" id="col-md-10 content" style="height: 0px; display: none">
+		
+        <div style="margin-top: 20px" id="dasplayer2"></div>
+        
+       <div style="height: 35px"></div>
+
+    <!--<div class="collapse" id="ByMediaId">-->
+      <div style="margin-bottom: 0px" class="panel panel-default panel-accordion">
+        <div class="panel-heading">
+         <h3 class="panel-title"><strong>Show job by MediaId</strong></h3>
+          <p class="text-muted"><small>Enter a MediaId to show that job in the player.</small></p>
+            <form name="vbMediaId2" method="post" id="vbMediaId2" enctype="multipart/form-data" action="">
+            <div class="form-group">
+	            <div class="input-group">
+	              <input class="form-control" name="vbMediaId2" id="vbMediaIdField2" value="" placeholder="VoiceBase MediaId">
+	              <span class="input-group-btn">
+	                <button class="btn btn-default" type="submit">Open in Player</button>
+	      			  </span>
+	            </div>
+            </div>
+            </form>
+         </div>
+         </div>
+         <!--</div>-->
+         
+      <div style="height: 15px"></div>
+
+        
+        <button type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Side By Side' onclick='singleplayermode()'><i class='fa fa-window-close'></i></button>        
+		
+			</div>
+<!-- Side by Side bwd sbs second panel end -->
+
+        
+        <script>
+         function printjobcontainers() {
+          //window.globalpagetotal = document.getElementById('resultstodisplay').value;
+          //var pagetotal = document.getElementById('resultstodisplay').value;
+          var pagetotal = window.globalpagetotal;
+          i = 0;
+          while (i < pagetotal) {
+              var innerhtmlstring1 = "<div class='list-group-item'><div class='pull-left margin-right-10'><i id='status_icon_" + i + "' class='fa fa-fw fa-refresh fa-spin text-muted'></i></div><button onclick='deletejob(" + i + ")' type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Delete'><i class='fa fa-trash'></i></button><button type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Side By Side' onclick='sidebyside(" + i + ")'><i class='fa fa-arrows-h'></i></button><button type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Mark Important' onclick='starimportant(" + i + ")'><i id='important_status_" + i + "' class='fa fa-star'></i></button><div class='list-group-item-content'><h4 class='list-group-item-heading collapsed'><a data-toggle='collapse' onclick='display(" + i + ")' href='#voicemail-2' aria-expanded='false'><span id='calledid" + i + "'></span></a></h4><p class='list-group-item-text'><span id='thereid" + i + "'></span></p><p class='list-group-item-text text-muted'><span id='dateid" + i + "'></span></p></div></div>";
+              /* var innerhtmlstring1 = "<div style='width: 100%'><div id='status" + i + "' style='float: left; padding: 12px 15px; display: none'></div><div style='width: 98%; display: inline-block'><a style='width: 96%; display: inline-block' class='list-group-item collapsed' data-toggle='collapse' onclick='display(" + i + ")' href='#voicemail-" + i + "' aria-expanded='false'> <h4 class='list-group-item-heading'><i id='status_icon_" + i + "' class='fa fa-fw fa-refresh fa-spin text-muted'></i><span id='hereid" + i + "'></span></h4></a> <span style='width: 3%; display: inline-block'><button onclick='deletejob(" + i + ")' type='button' class='btn btn-link btn-delete' data-toggle='tooltip' title='Delete'><i class='fa fa-trash'></i></button></span></div> <div class='collapse' id='voicemail-" + i + "' aria-expanded='false' style='height: 0px;'> <div class='panel-body'> <div id='playerspot"+i+"'></div> </div> </div> </div>"; */
+/*               var innerhtmlstring1 = "<div style='width: 100%'><div id='status" + i + "' style='float: left; padding: 12px 15px; display: none'></div><div style='width: 98%; display: inline-block'><a style='width: 96%; display: inline-block' class='list-group-item collapsed' data-toggle='collapse' onclick='display(" + i + ")' href='#voicemail-" + i + "' aria-expanded='false'> <h4 class='list-group-item-heading'><i id='status_icon_" + i + "' class='fa fa-fw fa-refresh fa-spin text-muted'></i><span id='hereid" + i + "'></span></h4></a> <span style='width: 3%; display: inline-block'><button onclick='deletejob(" + i + ")' type='button' class='btn btn-link btn-delete' data-toggle='tooltip' title='Delete'><i class='fa fa-trash'></i></button></span></div> <div class='collapse' id='voicemail-" + i + "' aria-expanded='false' style='height: 0px;'> <div class='panel-body'> <div id='playerspot"+i+"'></div> </div> </div> </div>"; */
+              if (innerhtmlstring2 == null) {
+              var innerhtmlstring2 = innerhtmlstring1;
+              } else {
+              var innerhtmlstring2 = innerhtmlstring2 + innerhtmlstring1;
+              }
+              i++;
+          }
+            document.getElementById('thejobcontainers').innerHTML = innerhtmlstring2;
+            i = 0;
+          }
+        </script>
+        <!-- BWD print the jobs in js end -->
+        
+        <!-- this is needed to display and hide the initial bearer token form -->
+        <script language="JavaScript" type="text/javascript">
+            function login(showhide){
+                if(showhide == "show"){
+                    document.getElementById('popupbox').style.visibility="visible";
+                }else if(showhide == "hide"){
+                     document.getElementById('popupbox').style.visibility="hidden"; 
+                }
+            }
+        </script>
+        
+        
+        
+        <!-- Show Job by MediaId -->
+        <script> 
+          var mediaIdform = document.getElementById('vbMediaId');
+          mediaIdform.onsubmit = function (m) {
+            m.preventDefault();
+            window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: document.getElementById('vbMediaIdField').value}, document.querySelector(`#dasplayer`)).render();
+          }
+        </script>
+        
+         <script> 
+          var mediaIdform2 = document.getElementById('vbMediaId2');
+          mediaIdform2.onsubmit = function (m) {
+            m.preventDefault();
+            window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: document.getElementById('vbMediaIdField2').value}, document.querySelector(`#dasplayer2`)).render();
+          }
+        </script>
+
+
+        <!-- Add externalId for 'important jobs' so that they can be queried easily later -->
+        <script>
+        function starimportant(gob) {
+            if (document.getElementById(`important_status_${gob}`).className == "fa fa-star") {
+            var settings = {
+              "crossDomain": true,
+              "url": `https://apis.voicebase.com/v3/media/${vbresponse.media[gob].mediaId}/metadata`,
+              "method": "PUT",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": "application/json",
+              "mimeType": "application/json",
+              dataType: 'json',
+              data: '{"externalId":"bwd524t8g9piunf42tv3978qiuo34t8h98pweurqfn895824b"}',
+              success: function(win) {
+                document.getElementById(`important_status_${gob}`).className = "fa fa-star-o";
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+            } else {
+            var settings = {
+              "crossDomain": true,
+              "url": `https://apis.voicebase.com/v3/media/${vbresponse.media[gob].mediaId}/metadata`,
+              "method": "PUT",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": "application/json",
+              "mimeType": "application/json",
+              //"data": form,
+              dataType: 'json',
+              data: '{"externalId":"bwd524t8g9piunf42tv3978qiuo34t8h98pweurqfn895824t"}',
+              success: function(win) {
+                document.getElementById(`important_status_${gob}`).className = "fa fa-star";
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+          } 
+        }
+         
+        </script>
+
+        <!-- Upload new job to VoiceBase -->
+        <script> 
+          var uploadform = document.getElementById('vbupload');
+          uploadform.onsubmit = function (e) {
+            e.preventDefault();
+            var form = new FormData();
+            form.append('media', $('input#uploadFileFile.uploadFileFileClass')[0].files[0]);
+            var uploadFileUrlele = document.getElementById('uploadFileUrl').value;
+            if (uploadFileUrlele != ""  && $('input#uploadFileFile.uploadFileFileClass')[0].files[0] == undefined)
+            { 
+              form.append("mediaUrl", document.getElementById('uploadFileUrl').value);
+            }
+            else if(uploadFileUrlele == "" && $('input#uploadFileFile.uploadFileFileClass')[0].files[0] != undefined)
+            {
+              form.append('media', $('input#uploadFileFile.uploadFileFileClass')[0].files[0]);
+            }
+            else if(uploadFileUrlele != "" && $('input#uploadFileFile.uploadFileFileClass')[0].files[0] != undefined)
+            {
+              form.append('media', $('input#uploadFileFile.uploadFileFileClass')[0].files[0]);
+            }
+            form.append("configuration", document.getElementById('configuration').value);
+            form.append("metadata", document.getElementById('metadata').value);
+            var settings = {
+              "crossDomain": true,
+              //"url": "https://requestb.in/1brnmoh1",
+              "url": "https://apis.voicebase.com/v3/media",
+              "method": "POST",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": false,
+              "mimeType": "multipart/form-data",
+              "data": form,
+              success: function(win) {
+                alert("New Job Successfully Created!");
+                refresh();
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+          } 
+        </script>
+
+        <!-- search -->
+        <script>
+          var vbsearch = document.getElementById('vbsearch');
+          vbsearch.onsubmit = function (s) {
+            s.preventDefault();
+            window.globalpagetotal = document.getElementById('resultstodisplay').value;
+            //printjobcontainers();
+            //var searchform = new FormData();
+            //var date = document.getElementById('afterdate') 02/11/2017
+            
+            var afterdateshort = new Date(document.getElementById('afterdate').value);
+            if (afterdateshort == "Invalid Date") {
+                alert("Please select a valid date range");
+            }
+            var afterdateisoextra = afterdateshort.toISOString();
+            var afterdateisoneedsZ = afterdateisoextra.substring(0, 19);
+            var afterdateiso = afterdateisoneedsZ + 'Z';
+            var beforedateshort = new Date(document.getElementById('beforedate').value);
+             if (beforedateshort == "Invalid Date") {
+                alert("Please select a valid date range");
+            }
+            var beforedateisoextra = beforedateshort.toISOString();
+            var beforedateisoneedsZ = beforedateisoextra.substring(0, 19);
+            var beforedateiso = beforedateisoneedsZ + 'Z';
+            
+
+
+            if (document.getElementById('starred').checked == true) {
+                var theurl = `https://apis.voicebase.com/v3/media?query=${document.getElementById('searchfield').value}&onOrAfterDate=` + afterdateiso + `&onOrBeforeDate=` + beforedateiso + `&externalId=bwd524t8g9piunf42tv3978qiuo34t8h98pweurqfn895824t`;
+            } else {
+                var theurl = `https://apis.voicebase.com/v3/media?query=${document.getElementById('searchfield').value}&onOrAfterDate=` + afterdateiso + `&onOrBeforeDate=` + beforedateiso;
+            }
+            
+            var settings = {
+              "crossDomain": true,
+              //"url": `https://apis.voicebase.com/v3/media?query=${document.getElementById('searchfield').value}&onOrAfterDate=` + afterdateiso + `&onOrBeforeDate=` + beforedateiso,
+              "url": theurl,
+              "method": "GET",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": false,
+              success: function(data) {
+                window.vbresponse = data;
+                if (vbresponse.media.length < window.globalpagetotal) {
+                    window.globalpagetotal = vbresponse.media.length;
+                };
+                printjobcontainers();
+                printjobs();
+                //here?
+                function poll() {
+                  //j++;
+                  //k = j % window.globalpagetotal;
+                  $.ajax({
+                    //url: `https://apis.voicebase.com/v3/media?query=${document.getElementById('searchfield').value}&onOrAfterDate=` + afterdateiso + `&onOrBeforeDate=` + beforedateiso,
+                    "url": theurl,
+                    headers: {
+                      "Authorization": `Bearer ${bearertoken}`
+                    },
+                    type: "GET",
+                    success: function(data) {
+                    window.vbresponse = data;
+                    if (vbresponse.media.length < window.globalpagetotal) {
+                        window.globalpagetotal = vbresponse.media.length;
+                    };
+                    i = 0;
+                    e = 0;
+                    while (i < window.globalpagetotal) {
+                      if (vbresponse.media[i].metadata.externalId == "bwd524t8g9piunf42tv3978qiuo34t8h98pweurqfn895824t") {
+                        document.getElementById(`important_status_${i}`).className = "fa fa-star";
+                      } else {
+                        document.getElementById(`important_status_${i}`).className = "fa fa-star-o";
+                      };
+                      if (vbresponse.media[i].status != "finished" && vbresponse.media[i].status != "failed" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${i}`).className = "fa fa-fw fa-refresh fa-spin text-muted";
+                        i++;
+                      } else if (vbresponse.media[i].status == "finished" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${i}`).className = "fa fa-fw fa-check-circle text-success";
+                        e++;
+                        i++;
+                      } else if (vbresponse.media[i].status == "failed" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${i}`).className = "fa fa-fw fa-exclamation-circle text-danger";
+                        e++;
+                        i++;
+                      }
+                      }
+                      if (e >= window.globalpagetotal) {
+                        clearInterval(stopinterval);
+                      }
+                    }
+                  });
+                };
+                var stopinterval = setInterval(poll, 5000);
+                poll();
+              },
+              error: function(nodata) {
+                alert("Sorry, something went wrong. Make sure your bearer token, search date range, and search terms are valid then try again.")
+              }
+            }
+//here?
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+          }
+        </script>
+
+        <!-- collect the bearer token and make initial poll to VoiceBase to populate app with some recent jobs -->
+        <script>
+          var bearerform = document.getElementById('vbbearer');
+          bearerform.onsubmit = function (b) {
+            b.preventDefault();
+            window.globalpagetotal = document.getElementById('resultstodisplay').value;
+            window.bearertoken = document.getElementById('bearertoken').value;
+            var settings = {
+              "crossDomain": true,
+              "url": "https://apis.voicebase.com/v3/media",
+              "method": "GET",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": false,
+              success: function(data) {
+                window.vbresponse = data;
+                document.getElementById(`btmessage`).innerHTML = '<span style="color:green">Bearer Token Accepted Successfully</span><br /><a href="javascript:login(&quot;hide&quot;);">Continue to View Jobs</a>';
+                window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[0].mediaId}, document.querySelector(`#dasplayer`)).render();
+                printjobcontainers();
+                printjobs();
+                function poll() {
+                  //j++;
+                  //k = j % window.globalpagetotal;
+                  $.ajax({
+                    url: `https://apis.voicebase.com/v3/media`,
+                    headers: {
+                      "Authorization": `Bearer ${bearertoken}`
+                    },
+                    type: "GET",
+                    success: function(data) {
+                    window.vbresponse = data;
+                    i = 0;
+                    e = 0;
+                    while (i < window.globalpagetotal) {
+                      if (vbresponse.media[i].metadata.externalId == "bwd524t8g9piunf42tv3978qiuo34t8h98pweurqfn895824t") {
+                        document.getElementById(`important_status_${i}`).className = "fa fa-star";
+                      } else {
+                        document.getElementById(`important_status_${i}`).className = "fa fa-star-o";
+                      };
+                      if (vbresponse.media[i].status != "finished" && vbresponse.media[i].status != "failed" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${i}`).className = "fa fa-fw fa-refresh fa-spin text-muted";
+                        i++;
+                      } else if (vbresponse.media[i].status == "finished" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${i}`).className = "fa fa-fw fa-check-circle text-success";
+                        e++;
+                        i++;
+                      } else if (vbresponse.media[i].status == "failed" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${i}`).className = "fa fa-fw fa-exclamation-circle text-danger";
+                        e++;
+                        i++;
+                      }
+                      }
+                      if (e >= window.globalpagetotal) {
+                        clearInterval(stopinterval);
+                      }
+                    }
+                  });
+                };
+                var stopinterval = setInterval(poll, 5000);
+                poll();
+              },
+              error: function(nodata) {
+                alert("Sorry, this bearer token was not accepted. Please try again.")
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+          }
+        </script>
+
+<!-- Refresh function does a poll to VoiceBase /media then does printjobs() to print what it gets, used when a new job is added or delete, but not for search -->
+        <script>
+          function refreshx() {
+            var settings = {
+              "crossDomain": true,
+              "url": "https://apis.voicebase.com/v3/media",
+              "method": "GET",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": false,
+              success: function(data) {
+                window.vbresponse = data;
+                printjobs();
+                },
+              error: function(nodata) {
+                alert("Sorry, the bearer token was not accepted.")
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+          }
+        </script>
+        
+        <script>
+            function refresh() {
+            var settings = {
+              "crossDomain": true,
+              "url": "https://apis.voicebase.com/v3/media",
+              "method": "GET",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": false,
+              success: function(data) {
+                window.vbresponse = data;
+                document.getElementById(`btmessage`).innerHTML = '<span style="color:green">Bearer Token Accepted Successfully</span><br /><a href="javascript:login(&quot;hide&quot;);">Continue to View Jobs</a>';
+                printjobs();
+                function poll() {
+                  //j++;
+                  //k = j % window.globalpagetotal;
+                  $.ajax({
+                    url: `https://apis.voicebase.com/v3/media`,
+                    headers: {
+                      "Authorization": `Bearer ${bearertoken}`
+                    },
+                    type: "GET",
+                    success: function(data) {
+                    window.vbresponse = data;
+                    i = 0;
+                    e = 0;
+                    while (i < window.globalpagetotal) {
+                      if (vbresponse.media[i].metadata.externalId == "bwd524t8g9piunf42tv3978qiuo34t8h98pweurqfn895824t") {
+                        document.getElementById(`important_status_${i}`).className = "fa fa-star";
+                      } else {
+                        document.getElementById(`important_status_${i}`).className = "fa fa-star-o";
+                      };
+                      if (vbresponse.media[i].status != "finished" && vbresponse.media[i].status != "failed" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${i}`).className = "fa fa-fw fa-refresh fa-spin text-muted";
+                        i++;
+                      } else if (vbresponse.media[i].status == "finished" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${i}`).className = "fa fa-fw fa-check-circle text-success";
+                        e++;
+                        i++;
+                      } else if (vbresponse.media[i].status == "failed" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${i}`).className = "fa fa-fw fa-exclamation-circle text-danger";
+                        e++;
+                        i++;
+                      }
+                    }
+                      if (e >= window.globalpagetotal) {
+                        clearInterval(stopinterval);
+                      }
+                    }
+                  });
+                };
+                var stopinterval = setInterval(poll, 5000);
+                poll();
+              },
+              error: function(nodata) {
+                alert("Sorry, this bearer token was not accepted. Please try again.")
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+          }
+        </script>
+
+
+<!-- Delete job -->
+        <script>
+          function deletejob(ob) {
+            var formdelete = new FormData();
+            var settings = {
+              "crossDomain": true,
+              "url": `https://apis.voicebase.com/v3/media/${vbresponse.media[ob].mediaId}`,
+              "method": "DELETE",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": false,
+              "mimeType": "multipart/form-data",
+              "data": formdelete,
+              success: function(win) {
+                alert("Job delete successful!");
+                refresh();
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+          }
+        </script>
+        
+        
+        
+<!-- print jobs only GET /media -->
+
+       <script>
+          function printjobs() {
+                var i = 0;
+                while (i < window.globalpagetotal) {
+                  /*document.getElementById(`hereid${i}`).innerHTML = '<strong>MediaId</strong> ' + '<span style="color:green">' + vbresponse.media[i].mediaId + '</span><br />' + '      <strong>MetadataTitle:</strong> ' + '<span style="color:green">' + vbresponse.media[i].metadata.title + '</span>' + '      <strong>Time:</strong> ' + '<span style="color:green">' + vbresponse.media[i].dateCreated + '</span>';*/
+                  if (vbresponse.media[i].metadata.externalId == "bwd524t8g9piunf42tv3978qiuo34t8h98pweurqfn895824t") {
+                  document.getElementById(`important_status_${i}`).className = "fa fa-star";
+                  } else {
+                  document.getElementById(`important_status_${i}`).className = "fa fa-star-o";
+                  };
+                  document.getElementById(`thereid${i}`).innerHTML = vbresponse.media[i].mediaId;
+                  if (typeof vbresponse.media[i].metadata.title == 'undefined') {
+                  document.getElementById(`calledid${i}`).innerHTML = vbresponse.media[i].mediaId;
+                  } else {
+                  document.getElementById(`calledid${i}`).innerHTML = vbresponse.media[i].metadata.title;
+                  }
+                  document.getElementById(`dateid${i}`).innerHTML = vbresponse.media[i].dateCreated;
+                  i++;
+                };
+          }
+              </script>
+
+
+<!-- print jobs (after polling) -->
+       <script>
+          function printjobsx() {
+                var i = 0;
+                while (i < window.globalpagetotal) {
+                  /*document.getElementById(`hereid${i}`).innerHTML = '<strong>MediaId</strong> ' + '<span style="color:green">' + vbresponse.media[i].mediaId + '</span><br />' + '      <strong>MetadataTitle:</strong> ' + '<span style="color:green">' + vbresponse.media[i].metadata.title + '</span>' + '      <strong>Time:</strong> ' + '<span style="color:green">' + vbresponse.media[i].dateCreated + '</span>';*/
+                  document.getElementById(`thereid${i}`).innerHTML = vbresponse.media[i].mediaId;
+                  document.getElementById(`calledid${i}`).innerHTML = vbresponse.media[i].metadata.title;
+                  document.getElementById(`dateid${i}`).innerHTML = vbresponse.media[i].dateCreated;
+                  i++;
+                };
+                j = -1;
+                e = 0;
+                //k - 0; //added
+                function poll() {
+                  j++;
+                  k = j % window.globalpagetotal;
+                  $.ajax({
+                    url: `https://apis.voicebase.com/v2-beta/media/${vbresponse.media[k].mediaId}/progress`,
+                    headers: {
+                      "Authorization": `Bearer ${bearertoken}`
+                    },
+                    type: "GET",
+                    success: function(data) {
+                      if (data.status != "finished" && data.status != "failed" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${k}`).className = "fa fa-fw fa-refresh fa-spin text-muted";
+                      } else if (data.status == "finished" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${k}`).className = "fa fa-fw fa-check-circle text-success";
+                        e++;
+                      } else if (data.status == "failed" && e < window.globalpagetotal) {
+                        document.getElementById(`status_icon_${k}`).className = "fa fa-fw fa-exclamation-circle text-danger";
+                        e++;
+                      } else if (e >= window.globalpagetotal) {
+                        clearInterval(stopinterval);
+                      }
+                    }
+                  });
+                };
+                var stopinterval = setInterval(poll, 500);
+              }
+              </script>
+
+        <script>
+          function refreshacustom() {
+            var i = 0;
+            while (i < window.globalpagetotal) {
+              /*document.getElementById(`hereid${i}`).innerHTML = window.vbresponsesearch.media[i].mediaId;*/
+              document.getElementById(`thereid${i}`).innerHTML = window.vbresponsesearch.media[i].mediaId;
+              document.getElementById(`calledid${i}`).innerHTML = vbresponsesearch.media[i].metadata.title;
+              document.getElementById(`dateid${i}`).innerHTML = vbresponsesearch.media[i].metadata.title;
+              window.playerInstances.push(VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponsesearch.media[i].mediaId }, `#playerspot${i}`).render());
+              i++;
+            };
+            j = -1;
+            e = 0;
+            k = 0;
+            function poll() {
+              j++;
+              k = j % window.globalpagetotal;
+              $.ajax({
+                url: `https://apis.voicebase.com/v2-beta/media/${vbresponse.media[k].mediaId}/progress`,
+                headers: {
+                  "Authorization": `Bearer ${bearertoken}`
+                },
+                type: "GET",
+                success: function(data) {
+                  if (data.status != "finished" && data.status != "failed" && e < window.globalpagetotal) {
+                    document.getElementById("status_icon_1").className = "fa fa-fw fa-refresh fa-spin text-muted";
+                  } else if (data.status == "finished" && e < window.globalpagetotal) {
+                    document.getElementById(`status_icon_${k}`).className = "fa fa-fw fa-check-circle text-success";
+                    e++;
+                  } else if (data.status == "failed" && e < window.globalpagetotal) {
+                    document.getElementById(`status_icon_${k}`).className = "fa fa-fw fa-exclamation-circle text-danger";
+                    e++;
+                  } else if (e >= window.globalpagetotal) {
+                    clearInterval(stopinterval);
+                  }
+                }
+              });
+            };
+            var stopinterval = setInterval(poll, 400);
+          }
+        </script>
+
+
+<!-- bwd sbs-->
+
+        <script>
+          function sidebyside(jo) {
+              document.getElementById('col-md-3 sidebar').style.width = "0%";
+              document.getElementById('col-md-3 sidebar').style.margin = "0px";
+              document.getElementById('col-md-3 sidebar').style.visibility = "hidden";
+              //document.getElementById('col-md-3 sidebar').style.padding = "0px";
+
+              document.getElementById('col-md-9 content').style.width = "48%";
+              
+              document.getElementById('col-md-10 content').style.width = "48%";
+              document.getElementById('col-md-10 content').style.float = "right";
+              document.getElementById('col-md-10 content').style.height = "auto";
+              document.getElementById('col-md-10 content').style.display = "block";
+              
+              window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[jo].mediaId}, document.querySelector(`#dasplayer2`)).render();
+          }
+        </script>
+        
+        
+         <script>
+          function singleplayermode() {
+              document.getElementById('col-md-3 sidebar').style.width = "25%";
+              document.getElementById('col-md-3 sidebar').style.margin = "0px";
+              document.getElementById('col-md-3 sidebar').style.visibility = "visible";
+              //document.getElementById('col-md-3 sidebar').style.padding-left = "15px";
+              //document.getElementById('col-md-3 sidebar').style.padding-right = "15px";
+
+              document.getElementById('col-md-9 content').style.width = "75%";
+              
+              document.getElementById('col-md-10 content').style.width = "0%";
+              document.getElementById('col-md-10 content').style.float = "right";
+              document.getElementById('col-md-10 content').style.height = "0px";
+              document.getElementById('col-md-10 content').style.display = "none";
+
+          }
+        </script>
+
+        <script>
+          function display(nob) {
+            window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[nob].mediaId}, document.querySelector(`#dasplayer`)).render();
+          }
+        </script>
+        
+<!-- bwd sbs -->
+        
+        <!-- Bootstrap core JavaScript
+          ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+        <!-- only needed for ajax maybe, delete if u dont use ajax -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <!-- player JS -->
+        <script src="https://unpkg.com/voicebase-player@0.0.6/lib/index.js"></script>
+        
+ <!-- ********************************************** Matt's JS config gen ************************************************** -->
+        
+        <script>
+	    function switchMono(){
+	      document.getElementById('stereo').value = 'mono'
+	    }
+
+	    function switchStereo(){
+	       document.getElementById('stereo').value = 'stereo'
+	    }
+
+	    </script>
+
+	    <script type='text/javascript'>
+
+	    function loadFields(){
+
+	    var elePredictiveModel = document.getElementById('predictivemodel').value;
+	    var elePredictiveModelName = document.getElementById('predictivemodelname').value;
+	    var predictivemodel;
+
+	    if (elePredictiveModel == '' && elePredictiveModelName ==''){
+	      predictivemodel = '';
+	    }
+
+	    else if (elePredictiveModel != '' && elePredictiveModelName == ''){
+	      predictivemodel = '"classifiers":[{ "classifierId":"' + elePredictiveModel + '"}],';
+	    }
+
+	    else if (elePredictiveModel == '' && elePredictiveModelName != '' ){
+	      predictivemodel = '"classifiers":[{ "classifierName":"' + elePredictiveModelName + '"}],';
+	    }
+	    else if (elePredictiveModel != '' && elePredictiveModelName != '') {
+	     predictivemodel =  '"classifiers":[{ "classifierId":"' + elePredictiveModel + '"}, { "classifierName":"' + elePredictiveModelName + '"}],';
+	    }
+
+	    var elePCIDetect = document.getElementById('PCIdetect').value;
+	    var eleSSNDetect = document.getElementById('SSNdetect').value;
+	    var elePIIDetect = document.getElementById('PIIdetect').value;
+	    var eleNumbersDetect = document.getElementById('Numbersdetect').value;
+	    var PCIdetect;
+	    var SSNdetect;
+	    var PIIdetect;
+	    var Numbersdetect;
+	    var detectorsconfig = '';
+
+
+	    if (elePCIDetect != 'Off') {
+	       PCIdetect = '{"detectorName":"' + elePCIDetect + '"},';
+	    } else {
+	        PCIdetect = '';
+	    }
+	    if (elePIIDetect != 'Off') {
+	        PIIdetect = '{"detectorName":"' + elePIIDetect + '"},';
+	    } else {
+	        PIIdetect = '';
+	    }
+	    if (eleSSNDetect != 'Off') {
+	      SSNdetect = '{"detectorName":"' + eleSSNDetect + '"},';
+	    } else {
+	        SSNdetect = '';
+	    }
+	    if (eleNumbersDetect != 'Off') {
+	      Numbersdetect = '{"detectorName":"' + eleNumbersDetect + '"},';
+	    } else {
+	        Numbersdetect = '';
+	    }
+
+	    var detector_arr = [Numbersdetect, SSNdetect, PIIdetect, PCIdetect];
+
+	    var detectors = detector_arr.join('');
+	    detectors = detectors.replace(/,\s*$/, "");
+	    if (detectors != ''){
+	   // var detectors = str(Numbersdetect + SSNdetect + PIIdetect + PCIdetect);
+	    detectorsconfig = '"detectors":[' + detectors + ']';
+
+	    }
+	    else{
+	      nothing++;;
+	    }
+
+	    var eleStereo = document.getElementById('stereo').value;
+	    var channel1 = document.getElementById('channel1').value;
+	    var channel2 = document.getElementById('channel2').value;
+	    var stereo2 = "";
+
+	    if (eleStereo && eleStereo =='stereo'){
+
+	      if(channel1 != '' && channel2 !=''){
+	        stereo2 = '"ingest":{"stereo":{"left":{"speakerName": "' + channel1 + '"},"right": {"speakerName": "' + channel2 + '"}}},';
+	      }
+	      else{
+	        stereo2 = '"ingest":{"stereo": {"left": { "speakerName": "Speaker-1" },"right": { "speakerName": "Speaker-2"}}},';
+	      }
+	    }
+
+	      /* Language */
+
+	    var languages = document.getElementById('language').value;
+
+	    var voicemail = document.getElementById('voicemailnumber'.value);
+
+	    var eleCvTerm1 = document.getElementById('cvterm1').value;
+	    var eleCvTerm2 = document.getElementById('cvterm2').value;
+	    var eleCvTerm3 = document.getElementById('cvterm3').value;
+	    var eleCvWeight1 = document.getElementById('cvweight1').value; 
+	    var eleCvWeight2 = document.getElementById('cvweight2').value;
+	    var eleCvWeight3 = document.getElementById('cvweight3').value;
+	    var eleCvSounds1 = document.getElementById('cvsounds1').value;
+	    var eleCvSounds2 = document.getElementById('cvsounds2').value;
+	    var eleCvSounds3 = document.getElementById('cvsounds3').value;
+
+	    var cvcustom = '';
+
+	    if (eleCvWeight1 == ''){
+	      eleCvWeight1 = '0';
+	    }
+	    if (eleCvWeight2 == ''){
+	      eleCvWeight2 = '0';
+	    }
+	    if (eleCvWeight3 == ''){
+	      eleCvWeight3 = '0';
+	    }
+
+
+	    if (eleCvTerm1 == '' && eleCvTerm2 == '' && eleCvTerm3 == '' ) {
+	      cvcustom = '';
+	    }
+	    else if (eleCvTerm1 != '' && eleCvTerm2 == '' && eleCvTerm3 == '' ) {
+	        cvcustom = '{"terms" : [{"term":"' + eleCvTerm1 + '", "weight": "' + eleCvWeight1 + '", "soundsLike": ["' + eleCvSounds1 + '"]}]},';
+	    }
+	    else if (eleCvTerm1 == '' && eleCvTerm2 != '' && eleCvTerm3 == '' ) {
+	        cvcustom = '{"terms" : [{"term":"' + eleCvTerm2 + '", "weight": "' + eleCvWeight2 + '", "soundsLike": ["' + eleCvSounds2 + ')"]}]},';
+	    }   
+	    else if (eleCvTerm1 == '' && eleCvTerm2 == '' && eleCvTerm3 != '' ) {
+	        cvcustom = '{"terms" : [{"term":"' + eleCvTerm3 + '", "weight": "' + eleCvWeight3 + '", "soundsLike": ["' + eleCvSounds3 + '"]}]},';
+	    }   
+	    else if (eleCvTerm1 != '' && eleCvTerm2 != '' && eleCvTerm3 == '' ) {
+	            cvcustom = '{"terms" : [{"term":"' + eleCvTerm1 + '", "weight": "' + eleCvWeight1 + '", "soundsLike": ["' + eleCvSounds1 + '"]}, {"term":"' + eleCvTerm2 + '", "weight": "' + eleCvWeight2 + '", "soundsLike": ["' + eleCvSounds2 + '"]}]},';
+	    }
+	    else if (eleCvTerm1 != '' && eleCvTerm2 == '' && eleCvTerm3 != '' ) {
+	                cvcustom = '{"terms":[{"term":"' + eleCvTerm1 + '", "weight": "' + eleCvWeight1 + '", "soundsLike": ["' + eleCvSounds1 + '"]},{"term":"' + eleCvTerm3 + '", "weight": "' + eleCvWeight3 + '", "soundsLike": ["' + eleCvSounds3 + '"]}]},';
+	    }
+	    else if (eleCvTerm1 == '' && eleCvTerm2 != '' && eleCvTerm3 != '' ) {
+	                cvcustom = '{"terms":[{"term":"' + eleCvTerm2 + '", "weight": "' + eleCvWeight2 + '", "soundsLike": ["' + eleCvSounds2 + ')"]},{"terms" : [{"term":"' + eleCvTerm3 + '", "weight": "' + eleCvWeight3 + '", "soundsLike": ["' + eleCvSounds3 + '"]}]},';
+	    }
+	    else if (eleCvTerm1 != '' && eleCvTerm2 != '' && eleCvTerm3 != '' ) {
+	                    cvcustom = '{"terms":[{"term":"' + eleCvTerm1 + '", "weight": "' + eleCvWeight1 + '", "soundsLike": ["' + eleCvSounds1 + '"]},{"term":"' + eleCvTerm2 + '", "weight": "' + eleCvWeight2 + '", "soundsLike,": ["' + eleCvSounds2 + ')"]},{"term":"' + eleCvTerm3 + '", "weight": "' + eleCvWeight3 + '", "soundsLike": ["' + eleCvSounds3 + '"]}]}';}
+
+
+	    var eleCvList = document.getElementById('cvlist').value;
+
+	    var nothing;
+
+	    var cvlist = '';
+
+	    if (eleCvList != '') {
+	      cvlist = '{"vocabularyName": "' + eleCvList + '"},';
+	    } else {
+	        cvlist = '';
+	    }
+
+	    var cv_arr = [cvlist, cvcustom];
+	    var customvocabconfig = cv_arr.join('');
+	    customvocabconfig =  customvocabconfig.replace(/,\s*$/, "");
+
+	    /* Keyword Spotting List */
+
+	    var eleKWList = document.getElementById('kwlist');
+	    var kwList;
+
+	    if (eleKWList != '') {
+	      kwlist = ',"spotting": {"groups": [ { "groupName": "$(kwlist)"}]}';
+	    } else {
+	        kwlist = '';
+	    }
+
+	    /* Knowledge  */
+
+	    var eleKnowledge = document.getElementById('knowledge').checked; 
+	    var knowledge;
+
+	    if (eleKnowledge) {
+	      knowledge = '"knowledge": {"enableDiscovery": true,"enableExternalDataSources" : true}';
+	    }
+	    else {
+	      knowledge = '"knowledge": {"enableDiscovery": false,"enableExternalDataSources" : false}';
+	    }
+
+	    /* Swear Word Filter */
+
+	    var eleSwear = document.getElementById('swear').checked;
+
+	    var swear;
+
+	    if (eleSwear) {
+	      swear =  '"contentFiltering": {"enableProfanityFiltering": true}';
+	    }
+	    else {
+	      swear = '"contentFiltering": {"enableProfanityFiltering": false}';
+	    }
+
+	    /* Number Formatting */
+
+	    var eleSymbols = document.getElementById('symbols').checked;
+	    //var elePhone = document.getElementById('phone').checked;
+	    var formatting2; 
+
+	    if (eleSymbols) {
+	      formatting2 = '"formatting":{"enableNumberFormatting": true},';
+	    }
+	    else {
+	      formatting2 = '"formatting":{"enableNumberFormatting": false},';
+	    }
+
+
+	      /* IMPORTANT: default to low priority for customers who are testing. If we want an internal verison we can turn priority on in the UI, when off it will default to low */
+      
+	      /* Callback */
+
+	    var eleCallBackMethod = document.getElementById('callbackmethod').value;
+	    var callbackmethod;
+      
+	    if (eleCallBackMethod != '') {
+	       callbackmethod = eleCallBackMethod;
+	    } else {
+	        callbackmethod = "POST";
+	    }
+
+	    var eleCallbackUrl = document.getElementById('callbackurl').value;
+	    var callbackconfig = '';
+      
+	    if (eleCallbackUrl != '') {
+	        callbackconfig =  ',"publish": {"callbacks": [{"url" : " + ' + eleCallbackUrl + '","method" : "' + callbackmethod + '","include" : [ "transcript", "knowledge", "metadata", "prediction", "streams", "spotting" ]}]}';}  
+
+	    window.customconfiguration = '{"speechModel" : { "language" : "' + languages + '"}, "prediction": { ' + detectorsconfig + predictivemodel +'},' + '"transcript":{' + formatting2 + swear + '},"vocabularies": [' + customvocabconfig + '],' + stereo2 + knowledge + callbackconfig + '}';
+
+	    }
+          
+	    </script> 
+
+	    <script>
+	    function loadMetadata(){
+
+	    var eleExternalId = document.getElementById('externalid').value;
+	    var eleKey1 = document.getElementById('key1').value;
+	    var eleKey2 = document.getElementById('key2').value;
+	    var eleKey3 = document.getElementById('key3').value;
+	    var eleValue1 = document.getElementById('value1').value;
+	    var eleValue2 = document.getElementById('value2').value;
+	    var eleValue3 = document.getElementById('value3').value;
+
+	    var metaExternalId = '';
+	    var metaKey1 = '';
+	    var metaKey2 = '';
+	    var metaKey3 = '';
+
+	    if (eleExternalId != ''){
+	      metaExternalId = '"externalId" : "' + eleExternalId + '",';
+	    }
+
+	    if (eleKey1 != '' && eleValue1 != ''){
+	      metaKey1 =  '"' + eleKey1 + '" : "' + eleValue1 + '",';
+	    }
+
+	    if (eleKey2 != '' && eleValue2 != ''){
+	      metaKey2 =  '"' + eleKey2 + '" : "' + eleValue2 + '",';
+	    }
+
+	    if (eleKey3 != '' && eleValue3 != ''){
+	      metaKey3 =  '"' + eleKey3 + '" : "' + eleValue3 + '"';
+	    }
+
+
+	    var meta_arr = [metaKey1, metaKey2, metaKey3];
+	    var metakeysconfig = meta_arr.join('');
+	    metakeysconfig =  metakeysconfig.replace(/,\s*$/, "");
+	    metaextended = '"extended": {' + metakeysconfig + '}';
+
+	    metaconfig_arr = [metaExternalId, metaextended];
+	    metaconfig = metaconfig_arr.join('');
+	    metaconfig = metaconfig.replace(/,\s*$/, "");
+
+
+	    window.custommetadata = '{ ' + metaconfig + '}';
+
+	  }
+	    </script>
+
+	    <script>
+
+	    function loadCurl(){
+
+	     var curlMediaUrl=document.getElementById('mediaurl').value;
+
+	     if (curlMediaUrl == ''){
+	      curlMediaUrl = 'http://devan.bigvoiceanalytics.org/audio/PCI-Stereo-Democall.wav';
+	     }
+
+	     window.customcurl = 'curl --url https://apis.voicebase.com/v3/media \\\n' +
+	     '     --request POST \\\n' +
+	     '     --header "Authorization: Bearer $TOKEN "\\\n' + 
+	     '     --form mediaUrl="' + curlMediaUrl + '" \\\n' + 
+	     '     --form \'configuration=' + window.customconfiguration + '\'\\\n' +
+	     '     --form \'metadata=' + window.custommetadata + '\'';   
+	    }
+
+	    </script>
+	    <script>
+	     function myConfigurationFunction(){
+	      this.loadFields();
+	      //this.loadMetadata();
+	      //this.loadCurl();
+
+	      document.getElementById('configuration').value = window.customconfiguration;
+	      //document.getElementById('generatedmetadata').innerHTML = window.custommetadata;
+	      //document.getElementById('generatedcurl').innerHTML = window.customcurl;
+
+	    }
+	     </script>  
+	     
+	     
+	     <script>
+	     function myMetadataFunction(){
+	      //this.loadFields();
+	      this.loadMetadata();
+	      //this.loadCurl();
+
+	      //document.getElementById('configuration').value = window.customconfiguration;
+	      document.getElementById('metadata').value = window.custommetadata;
+	      //document.getElementById('generatedcurl').innerHTML = window.customcurl;
+
+	    }
+	     </script> 
+	     
+	     <!-- end MAtts config gen -->
+	     
+        
+</div></div>
+
+<center>
+    <hr>
+    <a href="https://github.com/" target="_blank">Github <!--Placeholder--></a>
+    <br/>
+    <div style="height: 5px">
+    </div>
+    <a href="https://voicebase.com" target="_blank">VoiceBase Website</a> &nbsp; &nbsp; &nbsp;
+    <a href="https://apis.voicebase.com/developer-portal/" target="_blank">Developer Portal</a> &nbsp; &nbsp; &nbsp;
+    <a href="http://voicebase.readthedocs.io/en/v3/" target="_blank">Documentation</a> &nbsp; &nbsp; &nbsp;
+    <a href="https://www.voicebase.com/contact-us/" target="_blank">Support</a>
+    <div style="height: 25px">
+    </div>
+</center>
+
+</body>
+</html>
