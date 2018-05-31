@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<a>daniel-is-cool</a>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -38,8 +39,8 @@
 
 	<!-- DATEPICKER -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css" />		
-	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.min.css" />
+
 	<!-- JASNY BOOTSTRAP PLUGIN (FOR INPUT FIELD) -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/js/jasny-bootstrap.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jasny-bootstrap/3.1.3/css/jasny-bootstrap.min.css" />
@@ -60,7 +61,7 @@
       </a>
     </div>
     <ul class="nav navbar-nav navbar-right">
-        
+
         <!-- bwd sbs -->
       <li><span style="color: rgba(255,255,255,0.7); position: relative; display: block; padding: 15px 15px;" onclick="sidebyside()">Side by Side</span></li>
       <li><span style="color: rgba(255,255,255,0.7); position: relative; display: block; padding: 15px 15px;" onclick="singleplayermode()">Single Player Mode</span></li>
@@ -104,7 +105,7 @@
       <div style="height: 5px"></div>
       <hr>
       <div style="height: 5px"></div>
-    
+
       <div style="height: 10px"></div>
       <h3 class="sidebar-title">MediaId Lookup</h3>
       <p>Open jobs by MediaId. </p>
@@ -115,7 +116,7 @@
       <div style="height: 5px"></div>
       <hr>
       <div style="height: 5px"></div>
-      
+
       <div style="height: 10px"></div>
       <h3 class="sidebar-title">Version Notes</h3>
       <p>Read notes about the version of this app. </p>
@@ -125,9 +126,9 @@
       </button>
 
     </div>
- 
+
     <div class="col-md-9 content" id="col-md-9 content">
-        
+
         <div style="margin-top: 20px" id="dasplayer"></div>
       <br />
 
@@ -137,9 +138,9 @@
 		          <form name="vbupload" id="vbupload" method="post" enctype="multipart/form-data" action="">
 		            <div>
 
-		
+
 									<div class="flex flex-align-center">
-										<div> 
+										<div>
 											<div class="fileinput fileinput-new" data-provides="fileinput">
 											  <span class="btn btn-default btn-file">
 											  	<span class="fileinput-new">Choose file from your computer</span>
@@ -147,7 +148,7 @@
 											  	<input type="file" id="uploadFileFile" name="uploadFileFile" class="uploadFileFileClass">
 											  </span>
 											  <a href="#" class="btn btn-link close fileinput-exists" data-dismiss="fileinput">&times;</a>
-											</div>                  
+											</div>
 										</div>
 										<span class="text-muted margin-left-10 margin-right-10">or</span>
 										<div class="flex-fill">
@@ -155,12 +156,12 @@
 										</div>
 									</div>
 
-									
+
 		            <hr>
-		            
+
 		            <center><a data-toggle="tab" onclick="disableCustomConfig();" href="#optionsSimple">Simple Uploader</a>   |   <a data-toggle="tab" href="#optionsAdvanced" onclick="loadFields();loadMetadata();setCustomConfig();">Advanced Uploader</a></center>
 		            <br />
-		            
+
 		            <div class="tab-content">
 		            <div class="tab-pane fade in active" id="optionsSimple">
 
@@ -172,7 +173,7 @@
 			            <li><a data-toggle="tab" href="#optionsMetadata">Metadata</a></li>
 			            <li><a data-toggle="tab" href="#optionsCallbacks">Callbacks</a></li>
 		            </ul>
-		
+
 							  <div class="tab-content">
 							    <div class="tab-pane fade in active" id="optionsTranscript">
 										<div class="form-group row">
@@ -188,8 +189,8 @@
 				                <p class="help-block"><small>US English has full feature support. UK English and AU English have partial feature support. Portuguese and Spanish have only the transcript support.</small></p>
 				              </div>
 				            </div>
-				            
-				            
+
+
 							<div class="form-group row">
 							 <label class="control-label col-sm-3">Numbers to Symbols</label>
 				              <div class="col-sm-9">
@@ -201,8 +202,8 @@
 				                </div>
 								</div>
 								</div>
-				            
-				            
+
+
 				            <div class="form-group row">
 				              <label class="control-label col-sm-3">Channels</label>
 				              <div class="col-sm-9">
@@ -216,7 +217,7 @@
 													</label>
 				                </div>
 				              </div>
-				            </div>		
+				            </div>
 				            <div class="form-group row">
 				              <label class="control-label col-sm-3">Channel speakers</label>
 				              <div class="col-sm-9">
@@ -229,7 +230,7 @@
 					                </div>
 				                </div>
 				              </div>
-				            </div>				            				    
+				            </div>
 							    </div>
 							    <div class="tab-pane fade" id="optionsKeywords">
 				            <div class="form-group">
@@ -360,7 +361,7 @@
 				              </div>
 				            </div>
 				            </div>
-				            
+
 							    <!-- bwd analytics -->
 							    <div class="tab-pane fade" id="optionsAnalytics">
 							        				            <div class="form-group row">
@@ -385,12 +386,12 @@
 				                <textarea name="predictivemodelname" id="predictivemodelname" class="form-control" placeholder="Enter a predictive model name - model ID will not work"></textarea>
 				<p class="help-block"><small>Here is a sample name PLACEHOLDER</small></p>
 				              </div>
-				            </div>	
+				            </div>
 				            								</div>
 
 							    							    <!-- bwd analytics-->
 
-							    
+
 							    <div class="tab-pane fade" id="optionsMetadata">
 										<div class="form-group row">
 				              <label class="control-label col-sm-3">Metadata</label>
@@ -400,7 +401,7 @@
 
 				                <textarea name="externalid" id="externalid" class="form-control" rows="1" cols="2" placeholder="Your Own Job ID"></textarea>
 				                <p class="help-block"><small>VoiceBase allows you to assign your own ID to a job. Uniqueness is not enforced on the VoiceBase side.</small></p>
-				                
+
 				                <div class="row condensed margin-bottom-10">
 					                <div class="col-sm-6">
 						                <input type="text" class="form-control" name="key1" id="key1" placeholder="Key">
@@ -409,7 +410,7 @@
 						                <input type="text" class="form-control" name="value1" id="value1" placeholder="Value">
 					                </div>
 				                </div>
-				                
+
 				                <div class="row condensed margin-bottom-10">
 					                <div class="col-sm-6">
 						                <input type="text" class="form-control" name="key2" id="key2" placeholder="Key">
@@ -418,7 +419,7 @@
 						                <input type="text" class="form-control" name="value2" id="value2" placeholder="Value">
 					                </div>
 				                </div>
-				                
+
 				                <div class="row condensed margin-bottom-10">
 					                <div class="col-sm-6">
 						                <input type="text" class="form-control" name="key3" id="key3" placeholder="Key">
@@ -429,14 +430,14 @@
 				                </div>
 				                <p class="help-block"><small>Any Metadata you enter is returned with job results.</small></p>
 				              </div>
-				            </div>						    
+				            </div>
 							    </div>
 							    <div class="tab-pane fade" id="optionsCallbacks">
 				            <div class="form-group row">
 				              <label class="control-label col-sm-3">Callbacks</label>
 				              <div class="col-sm-9">
 				                <textarea name="callbackurl" id="callbackurl" rows="1" cols="2" class="form-control" placeholder="Enter a full callback url starting with http:// or https://"></textarea><div style="height: 10px"></div>
-				                <div class="btn-group" data-toggle="buttons">			                
+				                <div class="btn-group" data-toggle="buttons">
 					                <label id="post-label" class="btn btn-default active">
 					                	<input type="radio" name="callbackmethod" value="POST" id="callbackmethod" autocomplete="off" checked=""> POST
 					                </label>
@@ -446,14 +447,14 @@
 					              </div>
 				               </div>
 				             </div>
-				          
-							    
+
+
 							    </div>
 							  </div>
-		
+
 		          <!--</div>-->
 								<hr>
-								
+
 		            <div class="form-group row" style="display: none">
 			            <label class="control-label col-sm-3">Custom Configuration</label>
 			            <div class="col-sm-9">
@@ -461,12 +462,12 @@
 				            <div class="input-group">
 			              	<input class="form-control" id="configuration" type="text" placeholder="{{'example':'example'}}" />
 			              	<span class="input-group-btn">
-			              		<button type="button" onclick="myConfigurationFunction()" value="CSubmit" class="btn btn-default">Apply Custom Configuration</button>		                
+			              		<button type="button" onclick="myConfigurationFunction()" value="CSubmit" class="btn btn-default">Apply Custom Configuration</button>
 			              	</span>
 				            </div>
 			              <p class="help-block"><small>Click apply custom configuration to apply the options above, or you can add your own configuration JSON here. </small></p>
 			            </div>
-			          </div> 
+			          </div>
 			          <div class="form-group row" style="display: none">
 			            <label class="control-label col-sm-3">Custom Metadata</label>
 			            <div class="col-sm-9">
@@ -474,11 +475,11 @@
 				            <div class="input-group">
 			              	<input class="form-control" id="metadata" type="text" placeholder="{{'example':'example'}}" />
 			              	<span class="input-group-btn">
-			              		<button type="button" onclick="myMetadataFunction()" value="MSubmit" class="btn btn-default">Apply Custom Metadata</button>	                
+			              		<button type="button" onclick="myMetadataFunction()" value="MSubmit" class="btn btn-default">Apply Custom Metadata</button>
 			              	</span>
 				            </div>
 			              <p class="help-block"><small>Click apply custom metadata to apply the options above, or you can add your own metadata JSON here. </small></p>
-			            </div> 
+			            </div>
 			          </div>
 		            <div class="row">
 		              <div class="col-sm-9 col-sm-offset-3">
@@ -486,13 +487,13 @@
 		                <input type="submit" class="btn btn-success" onclick="loadMetadata();loadFields();" value="Upload">
 		                <button class="btn btn-link" type="button" data-dismiss="modal">Cancel</button>
 		              </div>
-		              
+
 		              <!-- kill simple and start advanced -->
 		              </div>
 		              </div>
 		          	 <div class="tab-pane fade" id="optionsAdvanced">
-		          	     
-		          	Configuration	            
+
+		          	Configuration
 				     <textarea style="width: 100%" name="configuration_advanced_json" id="configuration_advanced_json" class="form-control" rows="10" placeholder="Paste a custom configuration here, or use the simple upload to generate one."></textarea>
 		            Metadata
 		             <textarea style="width: 100%" name="metadata_advanced_json" id="metadata_advanced_json" class="form-control" rows="10" placeholder="Paste a custom metadata here, or use the simple upload to generate one."></textarea>
@@ -503,18 +504,18 @@
 		                <input type="submit" class="btn btn-success" value="Upload">
 		                <button class="btn btn-link" type="button" data-dismiss="modal">Cancel</button>
 		              </div>
-		        
+
 		        <!-- kill advanced --></div><!-- end ka -->
 		            </div>
 		            </div>
 		            </div>
 		          </form>
-		      </div>						
+		      </div>
 				</div>
 			</div>
 
-         
-         
+
+
       <!-- Version Notes -->
       <div class="collapse" id="versionNotes">
         <div class="well">
@@ -573,11 +574,11 @@
             </ul>
             </div>
          </div>
-      
+
 
       <!-- BWD new search -->
-      
-      
+
+
       <!-- ByMediaId collapse -->
     <div class="collapse" id="ByMediaId">
         <div style="height: 15px"></div>
@@ -598,8 +599,8 @@
          </div>
          </div>
          </div>
-         
-         
+
+
       <!-- Edit Jobs collapse -->
         <div class="collapse" id="editJob">
         <div style="height: 15px"></div>
@@ -620,9 +621,9 @@
          </div>
          </div>
          </div>
-         
-         
-         
+
+
+
       <div style="height: 15px"></div>
 
       <div style="margin-bottom: 0px" class="panel panel-default panel-accordion">
@@ -650,7 +651,7 @@
                 <option value="20">20 results per page</option>
                 <option value="50">50 results per page</option>
                 <option value="100">100 results per page</option>
-              </select>	 
+              </select>
               <div style="height: 10px"></div>
             </div>
             <div style="height: 13px"></div>
@@ -662,7 +663,7 @@
 
         <!-- BWD print the jobs in JS -->
         <span id="morejobs"></span>
-        
+
 				<div id="thejobcontainers" class="list-group">
 					<div class="list-group-item">
 						<div class="pull-left margin-right-10">
@@ -678,11 +679,11 @@
 						    </a>
 						  </h4>
 						  <p class="list-group-item-text">
-						    Untitled					  
+						    Untitled
 						  </p>
 						  <p class="list-group-item-text text-muted">
-						    2018-03-06T10:24:56.568Z					  
-						  </p>					    
+						    2018-03-06T10:24:56.568Z
+						  </p>
 				    </div>
 					</div>
 			    <div class="collapse" id="voicemail-0" aria-expanded="false">
@@ -704,11 +705,11 @@
 						    </a>
 						  </h4>
 						  <p class="list-group-item-text">
-						    Untitled					  
+						    Untitled
 						  </p>
 						  <p class="list-group-item-text text-muted">
-						    2018-03-06T10:24:56.568Z					  
-						  </p>					    
+						    2018-03-06T10:24:56.568Z
+						  </p>
 				    </div>
 					</div>
 			    <div class="collapse" id="voicemail-1" aria-expanded="false">
@@ -716,7 +717,7 @@
 			        <div id="playerspot0"></div>
 			      </div>
 			    </div>
-			    
+
 			    <!-- i think -->
 			    <div class="list-group-item">
 						<div class="pull-left margin-right-10">
@@ -732,15 +733,15 @@
 						    </a>
 						  </h4>
 						  <p class="list-group-item-text">
-						    Untitled					  
+						    Untitled
 						  </p>
 						  <p class="list-group-item-text text-muted">
-						    2018-03-06T10:24:56.568Z					  
-						  </p>					    
+						    2018-03-06T10:24:56.568Z
+						  </p>
 				    </div>
 					</div>
 					<!-- i think -->
-					
+
 			    <div class="collapse" id="voicemail-2" aria-expanded="false">
 			      <div class="panel-body">
 			        <div id="playerspot0"></div>
@@ -753,9 +754,9 @@
 
 <!-- Side by Side bwd sbs second panel -->
 			<div class="col-md-10 content" id="col-md-10 content" style="height: 0px; display: none">
-		
+
         <div style="margin-top: 20px" id="dasplayer2"></div>
-        
+
        <div style="height: 35px"></div>
 
     <!--<div class="collapse" id="ByMediaId">-->
@@ -776,16 +777,16 @@
          </div>
          </div>
          <!--</div>-->
-         
+
       <div style="height: 15px"></div>
 
-        
-        <button type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Side By Side' onclick='singleplayermode()'><i class='fa fa-window-close'></i></button>        
-		
+
+        <button type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Side By Side' onclick='singleplayermode()'><i class='fa fa-window-close'></i></button>
+
 			</div>
 <!-- Side by Side bwd sbs second panel end -->
 
-        
+
         <script>
          function printjobcontainers() {
           //window.globalpagetotal = document.getElementById('resultstodisplay').value;
@@ -808,30 +809,30 @@
           }
         </script>
         <!-- BWD print the jobs in js end -->
-        
+
         <!-- this is needed to display and hide the initial bearer token form -->
         <script language="JavaScript" type="text/javascript">
             function login(showhide){
                 if(showhide == "show"){
                     document.getElementById('popupbox').style.visibility="visible";
                 }else if(showhide == "hide"){
-                     document.getElementById('popupbox').style.visibility="hidden"; 
+                     document.getElementById('popupbox').style.visibility="hidden";
                 }
             }
         </script>
-        
-        
-        
+
+
+
         <!-- Show Job by MediaId -->
-        <script> 
+        <script>
           var mediaIdform = document.getElementById('vbMediaId');
           mediaIdform.onsubmit = function (m) {
             m.preventDefault();
             window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: document.getElementById('vbMediaIdField').value}, document.querySelector(`#dasplayer`)).render();
           }
         </script>
-        
-         <script> 
+
+         <script>
           var mediaIdform2 = document.getElementById('vbMediaId2');
           mediaIdform2.onsubmit = function (m) {
             m.preventDefault();
@@ -865,7 +866,7 @@
             $.ajax(settings).done(function (response) {
               console.log(response);
             });
-            
+
             var settings = {
               "crossDomain": true,
               "url": `https://apis.voicebase.com/v3/media/${vbresponse.media[gob].mediaId}/metadata`,
@@ -888,9 +889,9 @@
             $.ajax(settings).done(function (response) {
               console.log(response);
             });
-            
+
             } else {
-                
+
               var settings = {
               "crossDomain": true,
               "url": `https://apis.voicebase.com/v3/media/${vbresponse.media[gob].mediaId}/metadata`,
@@ -911,12 +912,12 @@
             $.ajax(settings).done(function (response) {
               console.log(response);
             });
-            
-            
+
+
             //var json = JSON.stringify(window.vbmetadataresponse);
             //document.getElementById(`whatever`).innerHTML = "hi" + window.vbresps + "hi";
-            
-            
+
+
             var settings = {
               "crossDomain": true,
               "url": `https://apis.voicebase.com/v3/media/${vbresponse.media[gob].mediaId}/metadata`,
@@ -939,11 +940,11 @@
             $.ajax(settings).done(function (response) {
               console.log(response);
             });
-          } 
+          }
         }
-         
+
         </script>
-        
+
         <script>
             function setCustomConfig() {
                 window.CustomConfig = "advanced";
@@ -954,7 +955,7 @@
                 window.CustomConfig = "simple";
             }
         </script>
-        
+
         <!-- Need to run disableCustomConfig once to make simple the default -->
         <script>
             document.addEventListener("DOMContentLoaded", function(){
@@ -963,7 +964,7 @@
         </script>
 
         <!-- Upload new job to VoiceBase -->
-        <script> 
+        <script>
           var uploadform = document.getElementById('vbupload');
           uploadform.onsubmit = function (e) {
             e.preventDefault();
@@ -973,7 +974,7 @@
             form.append('media', $('input#uploadFileFile.uploadFileFileClass')[0].files[0]);
             var uploadFileUrlele = document.getElementById('uploadFileUrl').value;
             if (uploadFileUrlele != ""  && $('input#uploadFileFile.uploadFileFileClass')[0].files[0] == undefined)
-            { 
+            {
               form.append("mediaUrl", document.getElementById('uploadFileUrl').value);
             }
             else if(uploadFileUrlele == "" && $('input#uploadFileFile.uploadFileFileClass')[0].files[0] != undefined)
@@ -988,7 +989,7 @@
             form.append('media', $('input#uploadFileFile.uploadFileFileClass')[0].files[0]);
             var uploadFileUrlele = document.getElementById('uploadFileUrl').value;
             if (uploadFileUrlele != ""  && $('input#uploadFileFile.uploadFileFileClass')[0].files[0] == undefined)
-            { 
+            {
               form.append("mediaUrl", document.getElementById('uploadFileUrl').value);
               var url = document.getElementById('uploadFileUrl').value;
               var filename = url.split('/').pop()
@@ -1027,7 +1028,7 @@
             } else if (window.CustomConfig == "simple") {
             form.append("configuration", document.getElementById('configuration').value);
             }
-            
+
             if (window.CustomConfig == "advanced"){
             form.append("metadata", document.getElementById('metadata_advanced_json').value);
             } else if (window.CustomConfig == "simple") {
@@ -1063,7 +1064,7 @@
             $.ajax(settings).done(function (response) {
               console.log(response);
             });
-          } 
+          }
         </script>
 
         <!-- search -->
@@ -1075,7 +1076,7 @@
             //printjobcontainers();
             //var searchform = new FormData();
             //var date = document.getElementById('afterdate') 02/11/2017
-            
+
             var afterdateshort = new Date(document.getElementById('afterdate').value);
             if (afterdateshort == "Invalid Date") {
                 alert("Please select a valid date range");
@@ -1090,7 +1091,7 @@
             var beforedateisoextra = beforedateshort.toISOString();
             var beforedateisoneedsZ = beforedateisoextra.substring(0, 19);
             var beforedateiso = beforedateisoneedsZ + 'Z';
-            
+
 
 
             if (document.getElementById('starred').checked == true) {
@@ -1098,7 +1099,7 @@
             } else {
                 var theurl = `https://apis.voicebase.com/v3/media?query=${document.getElementById('searchfield').value}&onOrAfterDate=` + afterdateiso + `&onOrBeforeDate=` + beforedateiso;
             }
-            
+
             var settings = {
               "crossDomain": true,
               //"url": `https://apis.voicebase.com/v3/media?query=${document.getElementById('searchfield').value}&onOrAfterDate=` + afterdateiso + `&onOrBeforeDate=` + beforedateiso,
@@ -1274,7 +1275,7 @@
             });
           }
         </script>
-        
+
         <script>
             function refresh() {
             var settings = {
@@ -1369,9 +1370,9 @@
             });
           }
         </script>
-        
-        
-        
+
+
+
 <!-- print jobs only GET /media -->
 
        <script>
@@ -1492,17 +1493,17 @@
               //document.getElementById('col-md-3 sidebar').style.padding = "0px";
 
               document.getElementById('col-md-9 content').style.width = "48%";
-              
+
               document.getElementById('col-md-10 content').style.width = "48%";
               document.getElementById('col-md-10 content').style.float = "right";
               document.getElementById('col-md-10 content').style.height = "auto";
               document.getElementById('col-md-10 content').style.display = "block";
-              
+
               window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[jo].mediaId}, document.querySelector(`#dasplayer2`)).render();
           }
         </script>
-        
-        
+
+
          <script>
           function singleplayermode() {
               document.getElementById('col-md-3 sidebar').style.width = "25%";
@@ -1512,7 +1513,7 @@
               //document.getElementById('col-md-3 sidebar').style.padding-right = "15px";
 
               document.getElementById('col-md-9 content').style.width = "75%";
-              
+
               document.getElementById('col-md-10 content').style.width = "0%";
               document.getElementById('col-md-10 content').style.float = "right";
               document.getElementById('col-md-10 content').style.height = "0px";
@@ -1526,9 +1527,9 @@
             window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[nob].mediaId}, document.querySelector(`#dasplayer`)).render();
           }
         </script>
-        
+
 <!-- bwd sbs -->
-        
+
         <!-- Bootstrap core JavaScript
           ================================================== -->
         <!-- Placed at the end of the document so the pages load faster -->
@@ -1539,9 +1540,9 @@
 
         <!-- player JS -->
         <script src="https://unpkg.com/voicebase-player@0.0.6/lib/index.js"></script>
-        
+
  <!-- ********************************************** Matt's JS config gen ************************************************** -->
-        
+
         <script>
 	    function switchMono(){
 	      document.getElementById('stereo').value = 'mono'
@@ -1645,7 +1646,7 @@
 	    var eleCvTerm1 = document.getElementById('cvterm1').value;
 	    var eleCvTerm2 = document.getElementById('cvterm2').value;
 	    var eleCvTerm3 = document.getElementById('cvterm3').value;
-	    var eleCvWeight1 = document.getElementById('cvweight1').value; 
+	    var eleCvWeight1 = document.getElementById('cvweight1').value;
 	    var eleCvWeight2 = document.getElementById('cvweight2').value;
 	    var eleCvWeight3 = document.getElementById('cvweight3').value;
 	    var eleCvSounds1 = document.getElementById('cvsounds1').value;
@@ -1673,10 +1674,10 @@
 	    }
 	    else if (eleCvTerm1 == '' && eleCvTerm2 != '' && eleCvTerm3 == '' ) {
 	        cvcustom = '{"terms" : [{"term":"' + eleCvTerm2 + '", "weight": "' + eleCvWeight2 + '", "soundsLike": ["' + eleCvSounds2 + ')"]}]},';
-	    }   
+	    }
 	    else if (eleCvTerm1 == '' && eleCvTerm2 == '' && eleCvTerm3 != '' ) {
 	        cvcustom = '{"terms" : [{"term":"' + eleCvTerm3 + '", "weight": "' + eleCvWeight3 + '", "soundsLike": ["' + eleCvSounds3 + '"]}]},';
-	    }   
+	    }
 	    else if (eleCvTerm1 != '' && eleCvTerm2 != '' && eleCvTerm3 == '' ) {
 	            cvcustom = '{"terms" : [{"term":"' + eleCvTerm1 + '", "weight": "' + eleCvWeight1 + '", "soundsLike": ["' + eleCvSounds1 + '"]}, {"term":"' + eleCvTerm2 + '", "weight": "' + eleCvWeight2 + '", "soundsLike": ["' + eleCvSounds2 + '"]}]},';
 	    }
@@ -1719,7 +1720,7 @@
 
 	    /* Knowledge  */
 
-	    var eleKnowledge = document.getElementById('knowledge').checked; 
+	    var eleKnowledge = document.getElementById('knowledge').checked;
 	    var knowledge;
 
 	    if (eleKnowledge) {
@@ -1746,7 +1747,7 @@
 
 	    var eleSymbols = document.getElementById('symbols').checked;
 	    //var elePhone = document.getElementById('phone').checked;
-	    var formatting2; 
+	    var formatting2;
 
 	    if (eleSymbols) {
 	      formatting2 = '"formatting":{"enableNumberFormatting": true},';
@@ -1757,12 +1758,12 @@
 
 
 	      /* IMPORTANT: default to low priority for customers who are testing. If we want an internal verison we can turn priority on in the UI, when off it will default to low */
-      
+
 	      /* Callback */
 
 	    var eleCallBackMethod = document.getElementById('callbackmethod').value;
 	    var callbackmethod;
-      
+
 	    if (eleCallBackMethod != '') {
 	       callbackmethod = eleCallBackMethod;
 	    } else {
@@ -1771,19 +1772,19 @@
 
 	    var eleCallbackUrl = document.getElementById('callbackurl').value;
 	    var callbackconfig = '';
-      
+
 	    if (eleCallbackUrl != '') {
-	        callbackconfig =  ',"publish": {"callbacks": [{"url" : " + ' + eleCallbackUrl + '","method" : "' + callbackmethod + '","include" : [ "transcript", "knowledge", "metadata", "prediction", "streams", "spotting" ]}]}';}  
+	        callbackconfig =  ',"publish": {"callbacks": [{"url" : " + ' + eleCallbackUrl + '","method" : "' + callbackmethod + '","include" : [ "transcript", "knowledge", "metadata", "prediction", "streams", "spotting" ]}]}';}
 
 	    window.customconfiguration = '{"speechModel" : { "language" : "' + languages + '"}, "prediction": { ' + detectorsconfig + predictivemodel +'},' + '"transcript":{' + formatting2 + swear + '},"vocabularies": [' + customvocabconfig + '],' + stereo2 + knowledge + callbackconfig + '}';
-        
+
         document.getElementById("configuration_advanced_json").value = window.customconfiguration;
-        
+
         document.getElementById("configuration").value = window.customconfiguration;
 
 	    }
-          
-	    </script> 
+
+	    </script>
 
 	    <script>
 	    function loadMetadata(){
@@ -1807,7 +1808,7 @@
 	    var filename;
 
             if (uploadFileUrlele != ""  && $('input#uploadFileFile.uploadFileFileClass')[0].files[0] == undefined)
-            { 
+            {
               filename = uploadFileUrlele.split('/').pop()
             }
             else if(uploadFileUrlele == "" && $('input#uploadFileFile.uploadFileFileClass')[0].files[0] != undefined)
@@ -1838,7 +1839,7 @@
 	    }
 	    else{
 		  metaTitle = '"title" : "' + eleTitle + '",';
-	    }  
+	    }
 	    if (eleExternalId != ''){
 	      metaExternalId = '"externalId" : "' + eleExternalId + '",';
 	    }
@@ -1867,9 +1868,9 @@
 
 
 	    window.custommetadata = '{ ' + metaconfig + '}';
-	    
+
 	    document.getElementById("metadata_advanced_json").value = window.custommetadata;
-	    
+
 	    document.getElementById("metadata").value = window.custommetadata;
 
 	  }
@@ -1887,10 +1888,10 @@
 
 	     window.customcurl = 'curl --url https://apis.voicebase.com/v3/media \\\n' +
 	     '     --request POST \\\n' +
-	     '     --header "Authorization: Bearer $TOKEN "\\\n' + 
-	     '     --form mediaUrl="' + curlMediaUrl + '" \\\n' + 
+	     '     --header "Authorization: Bearer $TOKEN "\\\n' +
+	     '     --form mediaUrl="' + curlMediaUrl + '" \\\n' +
 	     '     --form \'configuration=' + window.customconfiguration + '\'\\\n' +
-	     '     --form \'metadata=' + window.custommetadata + '\'';   
+	     '     --form \'metadata=' + window.custommetadata + '\'';
 	    }
 
 	    </script>
@@ -1905,9 +1906,9 @@
 	      //document.getElementById('generatedcurl').innerHTML = window.customcurl;
 
 	    }
-	     </script>  
-	     
-	     
+	     </script>
+
+
 	     <script>
 	     function myMetadataFunction(){
 	      //this.loadFields();
@@ -1919,11 +1920,11 @@
 	      //document.getElementById('generatedcurl').innerHTML = window.customcurl;
 
 	    }
-	     </script> 
-	     
+	     </script>
+
 	     <!-- end MAtts config gen -->
-	     
-        
+
+
 </div></div>
 
 <center>
