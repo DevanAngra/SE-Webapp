@@ -208,10 +208,10 @@
 				              <div class="col-sm-9">
 				                  <p class="help-block"><small>Is your audio a stereo recording where parties are separated by channel (typical for telephony)? If yes, check stereo and enter the speakers on the left and right channels, for example caller and agent. If no, leave as mono (most videos, lectures, etc.)</small></p>
 				                <div class="btn-group" data-toggle="buttons">
-				                  <label id="mono-label" class="btn btn-default active" onclick="switchMono()">
+				                  <label id="mono-label" class="btn btn-default" onclick="switchMono()">
 				                    <input type="radio" name="mono" value="mono" id="stereo" autocomplete="off"> Mono
 				                  </label>
-				                  <label id="stereo-label" onclick="switchStereo()" class="btn btn-default">
+				                  <label id="stereo-label" onclick="switchStereo()" class="btn btn-default active">
 				                  	<input type="radio" name="stereo" value="stereo" id="stereo" autocomplete="off" checked=""> Stereo
 													</label>
 				                </div>
@@ -229,23 +229,6 @@
 					                </div>
 				                </div>
 				              </div>
-				            </div>
-							 <div class="form-group row">
-							 <label class="control-label col-sm-3">Other options</label>
-				              <div class="col-sm-9">
-				                <div class="checkbox">
-				                  <label>
-				                    <input name="advpunc" id="advpunc" type="checkbox" value='disabled'>
-				                    Advanced Punctuation
-				                  </label>
-				                </div>
-				                <div class="checkbox">
-				                  <label>
-				                    <input name="vmmodel" id="vmmodel" type="checkbox" value='disabled'>
-				                    Voicemail Model
-				                  </label>
-				                </div>
-				            </div>
 				            </div>
 							    </div>
 							    <div class="tab-pane fade" id="optionsKeywords">
@@ -387,12 +370,6 @@
 				                  <label>
 				                    <input name="knowledge" id="knowledge" type="checkbox" value='enabled' checked="">
 				                    Keywords and Topics (Knowledge)
-				                  </label>
-				                </div>
-				                <div class="checkbox">
-				                  <label>
-				                    <input name="voicefeatures" id="voicefeatures" type="checkbox" value='enabled'>
-				                    Voice Features (Energy, Pitch and Tone measurements per word)
 				                  </label>
 				                </div>
 								</div>
@@ -1060,7 +1037,7 @@
 
             var settings = {
               "crossDomain": true,
-              //"url": "http://mattvoicebase.proxy.beeceptor.com",
+              //"url": "https://requestb.in/1brnmoh1",
               "url": "https://apis.voicebase.com/v3/media",
               "method": "POST",
               "headers": {
@@ -1662,38 +1639,6 @@
 	      /* Language */
 
 	    var languages = document.getElementById('language').value;
-	    var eleAdvPunc = document.getElementById('advpunc').checked;
-	    var eleVoiceFeat = document.getElementById('voicefeatures').checked;
-	    var eleVMModel = document.getElementById('vmmodel').checked;
-	    var advPunc;
-	    var voiceFeat;
-	    var VMModel;
-
-	    var languageConfig = '"language" : "' +  languages + '",';
-
-	    if (eleAdvPunc) {
-	    	advPunc = '"advancedPunctuation",';
-	    }
-
-	    if (eleVoiceFeat) {
-	    	voiceFeat = '"voiceFeatures"';
-	    }
-
-	    if (eleVMModel) {
-	    	VMModel = '"extensions" : [ "voicemail" ]';
-	    }
-
-	    var feat_arr = [advPunc, voiceFeat];
-	    var features = feat_arr.join('');
-	    features =  features.replace(/,\s*$/, "");
-
-	    var featuresConfig = '"features": [' + features + '],';
-
-	    var speechModel_arr = [languageConfig, featuresConfig, VMModel];
-	    var speechModel = speechModel_arr.join('');
-	    speechModel =  speechModel.replace(/,\s*$/, "");
-
-	    var speechModelconfig = '"speechModel" : {' + speechModel + '}';
 
 	    var voicemail = document.getElementById('voicemailnumber'.value);
 
@@ -1830,7 +1775,7 @@
 	    if (eleCallbackUrl != '') {
 	        callbackconfig =  ',"publish": {"callbacks": [{"url" : " + ' + eleCallbackUrl + '","method" : "' + callbackmethod + '","include" : [ "transcript", "knowledge", "metadata", "prediction", "streams", "spotting" ]}]}';}
 
-	    window.customconfiguration = '{' + speechModelconfig+ ' , "prediction": { ' + detectorsconfig + predictivemodel +'},' + '"transcript":{' + formatting2 + swear + '},"vocabularies": [' + customvocabconfig + '],' + stereo2 + knowledge + callbackconfig + '}';
+	    window.customconfiguration = '{"speechModel" : { "language" : "' + languages + '"}, "prediction": { ' + detectorsconfig + predictivemodel +'},' + '"transcript":{' + formatting2 + swear + '},"vocabularies": [' + customvocabconfig + '],' + stereo2 + knowledge + callbackconfig + '}';
 
         document.getElementById("configuration_advanced_json").value = window.customconfiguration;
 
