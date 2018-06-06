@@ -127,8 +127,9 @@
     </div>
 
     <div class="col-md-9 content" id="col-md-9 content">
-
-        <div style="margin-top: 20px" id="dasplayer"></div>
+       <div><a onclick='toggleplayer()'>Player </a>| <a onclick='togglejson()'>JSON Results</a></div>
+	   <div class="JSONResults" style="position: relative; height: 0px; visibility: hidden"><div>Double Click to Select All</div><pre class="highlight" id="JSONResults" style="height: 340px; overflow-y: scroll;"></pre></div>
+        <div style="margin-top: 20px; height: 340px" id="dasplayer"></div>
       <br />
 
 			<div class="modal fade" id="addRecordingModal">
@@ -158,7 +159,7 @@
 
 		            <hr>
 
-		            <center><a data-toggle="tab" onclick="disableCustomConfig();" href="#optionsSimple">Simple Uploader</a>   |   <a data-toggle="tab" href="#optionsAdvanced" onclick="loadFields();loadMetadata();setCustomConfig();">Advanced Uploader</a></center>
+		            <center><a data-toggle="tab" onclick="disableCustomConfig();" href="#optionsSimple">Simple Uploader</a>   |   <a data-toggle="tab" href="#optionsAdvanced" onclick="loadFields();loadMetadata('advanced');setCustomConfig();">Advanced Uploader</a></center>
 		            <br />
 
 		            <div class="tab-content">
@@ -754,7 +755,10 @@
 <!-- Side by Side bwd sbs second panel -->
 			<div class="col-md-10 content" id="col-md-10 content" style="height: 0px; display: none">
 
-        <div style="margin-top: 20px" id="dasplayer2"></div>
+
+       <div><a onclick='toggleplayer()'>Player </a>| <a onclick='togglejson()'>JSON Results</a></div>
+	   <div class="JSONResults" style="position: relative; height: 0px; visibility: hidden"><div>Double Click to Select All</div><pre class="highlight" id="JSONResults2" style="height: 340px; overflow-y: scroll;"></pre></div>
+        <div style="margin-top: 20px; height: 340px" id="dasplayer2"></div>
 
        <div style="height: 35px"></div>
 
@@ -1030,10 +1034,16 @@
 
             if (window.CustomConfig == "advanced"){
             form.append("metadata", document.getElementById('metadata_advanced_json').value);
+			
             } else if (window.CustomConfig == "simple") {
             myMetadataFunction();
             form.append("metadata", document.getElementById('metadata').value);
             }
+
+			
+			//bwdnow
+
+
 
             var settings = {
               "crossDomain": true,
@@ -1193,6 +1203,7 @@
               "contentType": false,
               success: function(data) {
                 window.vbresponse = data;
+				display('0');
                 document.getElementById(`btmessage`).innerHTML = '<span style="color:green">Bearer Token Accepted Successfully</span><br /><a href="javascript:login(&quot;hide&quot;);">Continue to View Jobs</a>';
                 window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[0].mediaId}, document.querySelector(`#dasplayer`)).render();
                 printjobcontainers();
@@ -1499,9 +1510,32 @@
               document.getElementById('col-md-10 content').style.display = "block";
 
               window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[jo].mediaId}, document.querySelector(`#dasplayer2`)).render();
+			   
+              var settings = {
+                "crossDomain": true,
+                "url": `https://apis.voicebase.com/v3/media/${vbresponse.media[jo].mediaId}`,
+                "method": "GET",
+                "headers": {
+                  "accept": "application/json",
+                  "Authorization": `Bearer ${bearertoken}`
+                },
+                "processData": false,
+                "contentType": false,
+                success: function(data) {
+                window.vbmediaidresponse = data;
+  	  		    var theJSON = JSON.stringify(window.vbmediaidresponse, undefined, 2);
+  	            document.getElementById('JSONResults2').innerHTML = '<span>' + theJSON + '</span>';
+  				},
+                error: function(nodata) {
+                  alert("Sorry, the bearer token was not accepted.")
+                }
+              }
+              $.ajax(settings).done(function (response) {
+                console.log(response);
+              });  
+		  
           }
         </script>
-
 
          <script>
           function singleplayermode() {
@@ -1521,11 +1555,100 @@
           }
         </script>
 
+<!-- bwd player json toggle-->
+
+        <script>
+          function toggleplayer() {
+              //document.getElementById('dasplayer').style.width = auto;
+              //document.getElementById('dasplayer').style.margin = auto;
+              document.getElementById('dasplayer').style.visibility = "visible";
+              document.getElementById('dasplayer2').style.visibility = "visible";
+
+			  
+              //document.getElementById('JSONResults').style.width = "0%";
+              //document.getElementById('JSONResults').style.margin = "0px";
+              document.getElementById('JSONResults').style.visibility = "hidden";
+              document.getElementById('JSONResults2').style.visibility = "hidden";
+
+          }
+        </script>
+
+		          <script>
+		            function togglejson() {
+		                //document.getElementById('dasplayer').style.width = "0%";
+		                //document.getElementById('dasplayer').style.margin = "0px";
+		                document.getElementById('dasplayer').style.visibility = "hidden";
+		                document.getElementById('dasplayer2').style.visibility = "hidden";
+
+						
+		                //document.getElementById('JSONResults').style.width = auto;
+		                //document.getElementById('JSONResults').style.margin = auto;
+		                document.getElementById('JSONResults').style.visibility = "visible";
+		                document.getElementById('JSONResults2').style.visibility = "visible";
+		                //document.getElementById('JSONResults').style.display = block;
+
+		            }
+		          </script>
+		  
         <script>
           function display(nob) {
             window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[nob].mediaId}, document.querySelector(`#dasplayer`)).render();
-          }
+ 
+            var settings = {
+              "crossDomain": true,
+              "url": `https://apis.voicebase.com/v3/media/${vbresponse.media[nob].mediaId}`,
+              "method": "GET",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": false,
+              success: function(data) {
+                window.vbmediaidresponse = data;
+	  		    var theJSON = JSON.stringify(window.vbmediaidresponse, undefined, 2);
+	            document.getElementById('JSONResults').innerHTML = '<span>' + theJSON + '</span>';
+				},
+              error: function(nodata) {
+                alert("Sorry, the bearer token was not accepted.")
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+		  
+		  //var theJSON = JSON.stringify(window.vbmediaidresponse);
+          //document.getElementById('JSONResults').innerHTML = '<span>' + theJSON + '</span>';
+		  
+	  }
         </script>
+	  
+	  <script>
+		  //This allows user to double click in the JSON Results <pre> to select all. Useful to copy JSON out.
+		  window.onload = function(){
+
+		      document.body.addEventListener('dblclick', function(e){
+		         var target = e.target || e.srcElement;        
+		         if (target.className.indexOf("highlight") !== -1 || target.parentNode.className.indexOf("highlight") !== -1){
+		              var range, selection;
+
+		              if (document.body.createTextRange) {
+		                  range = document.body.createTextRange();
+		                  range.moveToElementText(target);
+		                  range.select();
+		              } else if (window.getSelection) {
+		                  selection = window.getSelection();
+		                  range = document.createRange();
+		                  range.selectNodeContents(target);
+		                  selection.removeAllRanges();
+		                  selection.addRange(range);
+		              }
+		              e.stopPropagation();
+		         }              
+
+		      });
+		  };
+		  </script>
 
 <!-- bwd sbs -->
 
@@ -1786,7 +1909,7 @@
 	    </script>
 
 	    <script>
-	    function loadMetadata(){
+	    function loadMetadata(type){
 
 	    var eleExternalId = document.getElementById('externalid').value;
 	    var eleKey1 = document.getElementById('key1').value;
@@ -1802,6 +1925,7 @@
 	    var metaKey1 = '';
 	    var metaKey2 = '';
 	    var metaKey3 = '';
+		var uploadConfiguration = '';
 
     	var uploadFileUrlele = document.getElementById('uploadFileUrl').value;
 	    var filename;
@@ -1854,9 +1978,15 @@
 	    if (eleKey3 != '' && eleValue3 != ''){
 	      metaKey3 =  '"' + eleKey3 + '" : "' + eleValue3 + '"';
 	    }
-
-
+		
+		uploadConfiguration = '"uploadConfiguration":' + window.customconfiguration;
+		
+		if (type == 'advanced') {
 	    var meta_arr = [metaExternalId, metaKey1, metaKey2, metaKey3];
+		} else {
+		var meta_arr = [metaExternalId, metaKey1, metaKey2, metaKey3, uploadConfiguration];
+		}
+		
 	    var metakeysconfig = meta_arr.join('');
 	    metakeysconfig =  metakeysconfig.replace(/,\s*$/, "");
 	    metaextended = '"extended": {' + metakeysconfig + '}';
