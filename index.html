@@ -90,20 +90,57 @@
     <div class="col-md-3 sidebar" id="col-md-3 sidebar">
       <div style="height: 10px"></div>
       <h3 class="sidebar-title">Upload Recordings</h3>
-      <p>Choose from a broad list of configuration options and add a new recording. </p>
-      <!--
-      <button class="btn btn-success collapsed" data-toggle="collapse" data-target="#addRecording" id="addRecordingButton">
-        <i class="fa fa-plus"></i>
-        Add new Recording
-      </button>
-      -->
+      <p>Add new Recording to choose from a broad list of configuration options and add a new recording. You can also try our Zapier integration to setup a workflow or Postman to open our collection.</p>
       <button class="btn btn-success" data-toggle="modal" data-target="#addRecordingModal">
         <i class="fa fa-plus"></i>
         Add new Recording
       </button>
+	  
+      <br />
+<div style="height: 5px"></div>
+       <a href="https://zapier.com/developer/invite/91902/dbbf39a2a194ccaea7803c36a7f49e4f/"><button style="width: 123px; height: 30px; padding: 0px; margin-bottom: 5px" class="btn btn-default">
+        <i class="fa"></i>
+        <img style="position: relative; top: -2px; left: -2px;" src="zapier-logo.png">
+      </button></a>
+      <br />
+      
+       <button class="btn btn-default postman-run-button" data-postman-action="collection/import" data-postman-var-1="1758449-fc598afd-d748-e3ee-40da-61a69e2fc3cb-713dFur">
+        <i class="fa"></i>
+        <!--Upload with Postman <img src="postman-icon.png">-->
+      </button>
+      
+      
+      <!--<div class="postman-run-button" data-postman-action="collection/import" data-postman-var-1="1758449-fc598afd-d748-e3ee-40da-61a69e2fc3cb-713dFur">asd</div>-->
+      
+      <script src="js/runbutton.js" type="text/javascript" id="public-run-button-embed" data-web-host="https://www.getpostman.com/" data-button-url="https://run.pstmn.io/button.js"></script>
+      
       <div style="height: 5px"></div>
       <hr>
       <div style="height: 5px"></div>
+	  
+	  
+      <div style="height: 10px"></div>
+      <h3 class="sidebar-title">Custom Vocab</h3>
+      <p>Create and edit custom voabulary lists. </p>
+      <button class="btn btn-default" data-toggle="modal" data-target="#CustomVocab" id="CustomVocabButton">
+        <i class="fa fa-plus"></i>
+        Create Custom Vocab
+      </button>
+      <div style="height: 5px"></div>
+      <hr>
+      <div style="height: 5px"></div>
+	  
+      <div style="height: 10px"></div>
+      <h3 class="sidebar-title">Keyword Spotting</h3>
+      <p>Create and edit keyword spotting lists. </p>
+      <button class="btn btn-default" data-toggle="modal" data-target="#KeywordSpotting" id="KeywordSpottingButton">
+        <i class="fa fa-plus"></i>
+        Create Keyword List
+      </button>
+      <div style="height: 5px"></div>
+      <hr>
+      <div style="height: 5px"></div>
+
 
       <div style="height: 10px"></div>
       <h3 class="sidebar-title">MediaId Lookup</h3>
@@ -537,7 +574,188 @@
 				</div>
 			</div>
 
+			<!-- CV section start -->
+			
+			<div class="modal fade" id="CustomVocab">
+				<div class="modal-dialog">
+		      <div class="well" style="width: 620px">
+		          <form name="vbcvlist" id="vbcvlist" method="post" enctype="multipart/form-data" action="">
+		            <div>
+<div class="form-group">
+	
+	
+    <label class="control-label">Custom Vocabulary List Name</label>
+	
+    <div class="row condensed margin-bottom-10">
+        <div class="col-sm-9">
+            <input type="text" name="cvlistname" id="cvlistname" class="form-control" placeholder="Enter CV list name">
+        </div>
+	</div>
+		
+	
+				              <label class="control-label">Custom Vocabulary List Terms</label>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listcvterm1" id="listcvterm1" class="form-control" placeholder="Enter CV word or phrase">
+					              </div>
+					              <div class="col-sm-4">
+						              <input type="text" name="listcvsounds1" id="listcvsounds1" class="form-control" placeholder="Enter a Sounds Like Term">
+					              </div>
+					              <div class="col-sm-3">
+						              <select class="form-control" name="listcvweight1" id="listcvweight1">
+							              <option>0</option>
+							              <option>1</option>
+							              <option>2</option>
+							              <option>3</option>
+							              <option>4</option>
+							              <option>5</option>
+						              </select>
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listcvterm2" id="listcvterm2" class="form-control" placeholder="Enter CV word or phrase">
+					              </div>
+					              <div class="col-sm-4">
+						              <input type="text" name="listcvsounds2" id="listcvsounds2" class="form-control" placeholder="Enter a Sounds Like Term">
+					              </div>
+					              <div class="col-sm-3">
+						              <select class="form-control" name="listcvweight2" id="listcvweight2">
+							              <option>0</option>
+							              <option>1</option>
+							              <option>2</option>
+							              <option>3</option>
+							              <option>4</option>
+							              <option>5</option>
+						              </select>
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listcvterm3" id="listcvterm3" class="form-control" placeholder="Enter CV word or phrase">
+					              </div>
+					              <div class="col-sm-4">
+						              <input type="text" name="listcvsounds3" id="listcvsounds3" class="form-control" placeholder="Enter a Sounds Like Term">
+					              </div>
+					              <div class="col-sm-3">
+						              <select class="form-control" name="listcvweight3" id="listcvweight3">
+							              <option>0</option>
+							              <option>1</option>
+							              <option>2</option>
+							              <option>3</option>
+							              <option>4</option>
+							              <option>5</option>
+						              </select>
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listcvterm4" id="listcvterm4" class="form-control" placeholder="Enter CV word or phrase">
+					              </div>
+					              <div class="col-sm-4">
+						              <input type="text" name="listcvsounds4" id="listcvsounds4" class="form-control" placeholder="Enter a Sounds Like Term">
+					              </div>
+					              <div class="col-sm-3">
+						              <select class="form-control" name="listcvweight4" id="listcvweight4">
+							              <option>0</option>
+							              <option>1</option>
+							              <option>2</option>
+							              <option>3</option>
+							              <option>4</option>
+							              <option>5</option>
+						              </select>
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listcvterm5" id="listcvterm5" class="form-control" placeholder="Enter CV word or phrase">
+					              </div>
+					              <div class="col-sm-4">
+						              <input type="text" name="listcvsounds5" id="listcvsounds5" class="form-control" placeholder="Enter a Sounds Like Term">
+					              </div>
+					              <div class="col-sm-3">
+						              <select class="form-control" name="listcvweight5" id="listcvweight5">
+							              <option>0</option>
+							              <option>1</option>
+							              <option>2</option>
+							              <option>3</option>
+							              <option>4</option>
+							              <option>5</option>
+						              </select>
+					              </div>
+				              </div>
+			                <p class="help-block"><small></small></p>
+				            </div>
+							
+							<input type="submit" class="btn btn-success" value="Create List">
 
+		            </div>
+		            </div>
+		            </div>
+		          </form>
+		      </div>
+			
+			<!-- CV section end -->
+	
+	
+			<!-- KW section start -->
+			
+			<div class="modal fade" id="KeywordSpotting">
+				<div class="modal-dialog">
+		      <div class="well" style="width: 620px">
+		          <form name="vbkwlist" id="vbkwlist" method="post" enctype="multipart/form-data" action="">
+		            <div>
+<div class="form-group">
+	
+	
+    <label class="control-label">Keyword Spotting List Name</label>
+	
+    <div class="row condensed margin-bottom-10">
+        <div class="col-sm-9">
+            <input type="text" name="kwlistname" id="kwlistname" class="form-control" placeholder="Enter KW list name">
+        </div>
+	</div>
+		
+	
+				              <label class="control-label">Keyword Spotting List Terms</label>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listkwterm1" id="listkwterm1" class="form-control" placeholder="Enter Keyword to Spot">
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listkwterm2" id="listkwterm2" class="form-control" placeholder="Enter Keyword to Spot">
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listkwterm3" id="listkwterm3" class="form-control" placeholder="Enter Keyword to Spot">
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listkwterm4" id="listkwterm4" class="form-control" placeholder="Enter Keyword to Spot">
+					              </div>
+				              </div>
+				              <div class="row condensed margin-bottom-10">
+					              <div class="col-sm-5">
+						              <input type="text" name="listkwterm5" id="listkwterm5" class="form-control" placeholder="Enter Keyword to Spot">
+					              </div>
+				              </div>
+			                <p class="help-block"><small></small></p>
+				            </div>
+							
+							<input type="submit" class="btn btn-success" value="Create List">
+
+		            </div>
+		            </div>
+		            </div>
+		          </form>
+		      </div>
+			  
+			<!-- KW section end -->
+			
 
       <!-- Version Notes -->
       <div class="collapse" id="versionNotes">
@@ -597,10 +815,7 @@
             </ul>
             </div>
          </div>
-
-
-      <!-- BWD new search -->
-
+	 
 
       <!-- ByMediaId collapse -->
     <div class="collapse" id="ByMediaId">
@@ -624,7 +839,7 @@
          </div>
 
 
-      <!-- Edit Jobs collapse -->
+      <!-- Edit Jobs collapse 
         <div class="collapse" id="editJob">
         <div style="height: 15px"></div>
       <div style="margin-bottom: 0px" class="panel panel-default panel-accordion">
@@ -643,7 +858,7 @@
             </form>
          </div>
          </div>
-         </div>
+         </div>-->
 
 
 
@@ -1062,10 +1277,6 @@
             myMetadataFunction();
             form.append("metadata", document.getElementById('metadata').value);
             }
-
-			
-			//bwdnow
-
 
 
             var settings = {
@@ -1674,6 +1885,160 @@
 		  </script>
 
 <!-- bwd sbs -->
+		  
+		  <script>
+			  
+			  
+	          var uploadform = document.getElementById('vbcvlist');
+	          uploadform.onsubmit = function (p) {
+	            p.preventDefault();
+				
+				
+				cvlistname = document.getElementById('cvlistname').value;
+				
+				listcvterm1 = document.getElementById('listcvterm1').value;
+				listcvsounds1 = document.getElementById('listcvsounds1').value;
+				listcvweight1 = document.getElementById('listcvweight1').value;
+				
+				listcvterm2 = document.getElementById('listcvterm2').value;
+				listcvsounds2 = document.getElementById('listcvsounds2').value;
+				listcvweight2 = document.getElementById('listcvweight2').value;
+				
+				listcvterm3 = document.getElementById('listcvterm3').value;
+				listcvsounds3 = document.getElementById('listcvsounds3').value;
+				listcvweight3 = document.getElementById('listcvweight3').value;
+				
+				listcvterm4 = document.getElementById('listcvterm4').value;
+				listcvsounds4 = document.getElementById('listcvsounds4').value;
+				listcvweight4 = document.getElementById('listcvweight4').value;
+				
+				listcvterm5 = document.getElementById('listcvterm5').value;
+				listcvsounds5 = document.getElementById('listcvsounds5').value;
+				listcvweight5 = document.getElementById('listcvweight5').value;
+				
+				
+				 if (listcvterm1 != '' && listcvsounds1 == '') {
+					 listcvsounds1 = listcvterm1;
+				 }
+				 if (listcvterm2 != '' && listcvsounds2 == '') {
+					 listcvsounds2 = listcvterm2;
+				 }
+				 if (listcvterm3 != '' && listcvsounds3 == '') {
+					 listcvsounds3 = listcvterm3;
+				 }
+				 if (listcvterm4 != '' && listcvsounds4 == '') {
+					 listcvsounds4 = listcvterm4;
+				 }
+				 if (listcvterm5 != '' && listcvsounds5 == '') {
+					 listcvsounds5 = listcvterm5;
+				 }
+				
+				 var thedata = '';
+				 
+				  if (listcvterm1 != '') {
+					  thedata += '{"soundsLike":["' + listcvsounds1 + '"],"term":"' + listcvterm1 + '","weight":' + listcvweight1 + '}';
+				  }
+				  if (listcvterm2 != '') {
+					  thedata += ',{"soundsLike":["' + listcvsounds2 + '"],"term":"' + listcvterm2 + '","weight":' + listcvweight2 + '}';
+				  }
+				  if (listcvterm3 != '') {
+					  thedata += ',{"soundsLike":["' + listcvsounds3 + '"],"term":"' + listcvterm3 + '","weight":' + listcvweight3 + '}';
+				  }
+				  if (listcvterm4 != '') {
+					  thedata += ',{"soundsLike":["' + listcvsounds4 + '"],"term":"' + listcvterm4 + '","weight":' + listcvweight4 + '}';
+				  }
+				  if (listcvterm5 != '') {
+					  thedata += ',{"soundsLike":["' + listcvsounds5 + '"],"term":"' + listcvterm5 + '","weight":' + listcvweight5 + '}';
+				  }
+				
+	              var settings = {
+	                "crossDomain": true,
+	                "url": `https://apis.voicebase.com/v3/definition/vocabularies/${cvlistname}`,
+	                "method": "PUT",
+	                "headers": {
+	                  "accept": "application/json",
+	                  "Authorization": `Bearer ${bearertoken}`,
+					  "Content-Type": "application/json"
+	                },
+	                "processData": false,
+	                "contentType": false,
+					"data" : '{"vocabularyName":"' + cvlistname + '","terms":[' + thedata + ']}',
+	                success: function(data) {
+	                alert("New Vocabulary List Successfully Created.")
+	  				},
+	                error: function(nodata) {
+	                  alert("Sorry, the request was not accepted. Try filling out the fields in order and completely.")
+	                }
+	              }
+	              $.ajax(settings).done(function (response) {
+	                console.log(response);
+	              }); 
+			  }
+				
+			  
+			  </script>
+			  
+			  
+			  
+			  
+			  <script>
+		          var uploadform = document.getElementById('vbkwlist');
+		          uploadform.onsubmit = function (x) {
+		            x.preventDefault();
+				
+					kwlistname = document.getElementById('kwlistname').value;
+				
+					listkwterm1 = document.getElementById('listkwterm1').value;
+					listkwterm2 = document.getElementById('listkwterm2').value;
+					listkwterm3 = document.getElementById('listkwterm3').value;
+					listkwterm4 = document.getElementById('listkwterm4').value;
+					listkwterm5 = document.getElementById('listkwterm5').value;
+				
+					 var thedata = '';
+				 
+					  if (listkwterm1 != '') {
+						  thedata += '"' + listkwterm1 + '"';
+					  }
+					  if (listkwterm2 != '') {
+						  thedata += ',"' + listkwterm2 + '"';
+					  }
+					  if (listkwterm3 != '') {
+						  thedata += ',"' + listkwterm3 + '"';
+					  }
+					  if (listkwterm4 != '') {
+						  thedata += ',"' + listkwterm4 + '"';
+					  }
+					  if (listkwterm5 != '') {
+						  thedata += ',"' + listkwterm5 + '"';
+					  }
+				
+		              var settings = {
+		                "crossDomain": true,
+		                "url": `https://apis.voicebase.com/v3/definition/spotting/groups/${kwlistname}`,
+		                "method": "PUT",
+		                "headers": {
+		                  "accept": "application/json",
+		                  "Authorization": `Bearer ${bearertoken}`,
+						  "Content-Type": "application/json"
+		                },
+		                "processData": false,
+		                "contentType": false,
+						"data" : '{ "groupName" : "'+ kwlistname + '", "keywords" : [ ' + thedata +' ] }',
+		                success: function(data) {
+		                alert("New Vocabulary List Successfully Created.")
+		  				},
+		                error: function(nodata) {
+		                  alert("Sorry, the request was not accepted. Try filling out the fields in order and completely.")
+		                }
+		              }
+		              $.ajax(settings).done(function (response) {
+		                console.log(response);
+		              }); 
+				  }
+				
+			  
+				  </script>
+				  
 
         <!-- Bootstrap core JavaScript
           ================================================== -->
@@ -2113,7 +2478,7 @@
 
 <center>
     <hr>
-    <a href="https://github.com/" target="_blank">Github <!--Placeholder--></a>
+    <a href="https://github.com/DevanAngra/SE-Webapp" target="_blank">Github</a>
     <br/>
     <div style="height: 5px">
     </div>
