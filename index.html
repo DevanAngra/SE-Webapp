@@ -62,8 +62,8 @@
     <ul class="nav navbar-nav navbar-right">
 
         <!-- bwd sbs -->
-      <li><span style="color: rgba(255,255,255,0.7); position: relative; display: block; padding: 15px 15px;" onclick="sidebyside()">Side by Side</span></li>
-      <li><span style="color: rgba(255,255,255,0.7); position: relative; display: block; padding: 15px 15px;" onclick="singleplayermode()">Single Player Mode</span></li>
+      <!--<li><span style="color: rgba(255,255,255,0.7); position: relative; display: block; padding: 15px 15px;" onclick="sidebyside()">Side by Side</span></li>
+      <li><span style="color: rgba(255,255,255,0.7); position: relative; display: block; padding: 15px 15px;" onclick="singleplayermode()">Single Player Mode</span></li>-->
       <li><a href="javascript:history.go(0)">Change Bearer Token</a></li>
     </ul>
   </div>
@@ -107,6 +107,13 @@
        <button class="btn btn-default postman-run-button" data-postman-action="collection/import" data-postman-var-1="1758449-fc598afd-d748-e3ee-40da-61a69e2fc3cb-713dFur">
         <i class="fa"></i>
         <!--Upload with Postman <img src="postman-icon.png">-->
+      </button>
+	  
+	  <br />
+	  <div style="height: 5px"></div>
+      <button class="btn btn-default" data-toggle="modal" data-target="#sampleRecordings">
+        <i class="fa fa-plus"></i>
+        Sample Recordings
       </button>
       
       
@@ -573,6 +580,25 @@
 		      </div>
 				</div>
 			</div>
+		
+			
+						<!-- Sample section start -->
+			
+						<div class="modal fade" id="sampleRecordings">
+							<div class="modal-dialog">
+					      <div class="well" style="width: 620px">
+					         Click to add the preconfigured recording to your account. Please note that each time you click, a new recording will be added to your account.
+							 <!-- bwdnow -->
+							 <br />
+							 <a onclick="addSampleRecording(1)">Negative Metrics</a>
+							 <br />
+							 <a onclick="addSampleRecording(2)">Payment Card Information Detection and Redaction</a>
+							 </div>
+						 </div>
+					      </div>
+			
+						<!-- Sample section end -->	
+						
 
 			<!-- CV section start -->
 			
@@ -1035,7 +1061,7 @@
           var pagetotal = window.globalpagetotal;
           i = 0;
           while (i < pagetotal) {
-              var innerhtmlstring1 = "<div class='list-group-item'><div class='pull-left margin-right-10'><i id='status_icon_" + i + "' class='fa fa-fw fa-refresh fa-spin text-muted'></i></div><button onclick='deletejob(" + i + ")' type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Delete'><i class='fa fa-trash'></i></button><button type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Side By Side' onclick='sidebyside(" + i + ")'><i class='fa fa-arrows-h'></i></button><button type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Mark Important'><i id='important_status_" + i + "' class='fa fa-star'></i></button><div class='list-group-item-content'><h4 class='list-group-item-heading collapsed'><a data-toggle='collapse' onclick='display(" + i + ")' href='#voicemail-2' aria-expanded='false'><span id='calledid" + i + "'></span></a></h4><p class='list-group-item-text'><span id='thereid" + i + "'></span></p><p class='list-group-item-text text-muted'><span id='dateid" + i + "'></span></p></div></div>";
+              var innerhtmlstring1 = "<div class='list-group-item' id='list-group-item" + i + "'><div class='pull-left margin-right-10'><i id='status_icon_" + i + "' class='fa fa-fw fa-refresh fa-spin text-muted'></i></div><button onclick='deletejob(" + i + ")' type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Delete'><i class='fa fa-trash'></i></button><button type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Side By Side' onclick='sidebyside(" + i + ")'><i class='fa fa-arrows-h'></i></button><button type='button' class='btn btn-link btn-delete pull-right margin-right-10' data-toggle='tooltip' title='Mark Important'><i id='important_status_" + i + "' class='fa fa-star'></i></button><div class='list-group-item-content'><h4 class='list-group-item-heading collapsed'><a data-toggle='collapse' onclick='display(" + i + ")' href='#voicemail-2' aria-expanded='false'><span id='calledid" + i + "'></span></a></h4><p class='list-group-item-text'><span id='thereid" + i + "'></span></p><p class='list-group-item-text text-muted'><span id='dateid" + i + "'></span></p></div></div>";
               /* var innerhtmlstring1 = "<div style='width: 100%'><div id='status" + i + "' style='float: left; padding: 12px 15px; display: none'></div><div style='width: 98%; display: inline-block'><a style='width: 96%; display: inline-block' class='list-group-item collapsed' data-toggle='collapse' onclick='display(" + i + ")' href='#voicemail-" + i + "' aria-expanded='false'> <h4 class='list-group-item-heading'><i id='status_icon_" + i + "' class='fa fa-fw fa-refresh fa-spin text-muted'></i><span id='hereid" + i + "'></span></h4></a> <span style='width: 3%; display: inline-block'><button onclick='deletejob(" + i + ")' type='button' class='btn btn-link btn-delete' data-toggle='tooltip' title='Delete'><i class='fa fa-trash'></i></button></span></div> <div class='collapse' id='voicemail-" + i + "' aria-expanded='false' style='height: 0px;'> <div class='panel-body'> <div id='playerspot"+i+"'></div> </div> </div> </div>"; */
 /*               var innerhtmlstring1 = "<div style='width: 100%'><div id='status" + i + "' style='float: left; padding: 12px 15px; display: none'></div><div style='width: 98%; display: inline-block'><a style='width: 96%; display: inline-block' class='list-group-item collapsed' data-toggle='collapse' onclick='display(" + i + ")' href='#voicemail-" + i + "' aria-expanded='false'> <h4 class='list-group-item-heading'><i id='status_icon_" + i + "' class='fa fa-fw fa-refresh fa-spin text-muted'></i><span id='hereid" + i + "'></span></h4></a> <span style='width: 3%; display: inline-block'><button onclick='deletejob(" + i + ")' type='button' class='btn btn-link btn-delete' data-toggle='tooltip' title='Delete'><i class='fa fa-trash'></i></button></span></div> <div class='collapse' id='voicemail-" + i + "' aria-expanded='false' style='height: 0px;'> <div class='panel-body'> <div id='playerspot"+i+"'></div> </div> </div> </div>"; */
               if (innerhtmlstring2 == null) {
@@ -1310,6 +1336,61 @@
           }
         </script>
 
+
+<!-- Add Sample Reordings -->
+		  <script>
+		  
+	       function addSampleRecording(number) {
+			   
+			   var formData = new FormData();
+			   if (number == 1) {
+      				formData.append('mediaUrl', 'https://sewebapp.bigvoiceanalytics.org/audios/negative-metrics.wav');
+   					formData.append('configuration', '{"speechModel" : {"language" : "en-US"}}');
+					formData.append('metadata', '{"title":"Negative Metrics","extended":{}}')
+				   configuration = '';
+			   } else if (number == 2) {
+      				formData.append('mediaUrl', 'https://sewebapp.bigvoiceanalytics.org/audios/PCIStereoHenry.mp3');
+   					formData.append('configuration', '{"speechModel" : {"language" : "en-US","features": ["advancedPunctuation"]} , "prediction": { "detectors":[{"detectorName":"PCI"}]},"transcript":{"formatting":{"enableNumberFormatting": false},"contentFiltering": {"enableProfanityFiltering": false}},"vocabularies": [],"ingest":{"stereo":{"left":{"speakerName": "Caller"},"right": {"speakerName": "Agent"}}},"knowledge": {"enableDiscovery": true,"enableExternalDataSources" : true}}');
+					formData.append('metadata', '{"title":"Payment Card Information","extended":{}}')
+			   } else {
+				   i++;
+			   }
+				
+              var settings = {
+                "crossDomain": true,
+                "url": "https://apis.voicebase.com/v3/media",
+                "method": "POST",
+                "headers": {
+                  "accept": "application/json",
+                  "Authorization": `Bearer ${bearertoken}`
+                },
+                "processData": false,
+                "contentType": false,
+                "mimeType": "multipart/form-data",
+                "data": formData,
+				//formData.append('mediaurl', 'https://sewebapp.bigvoiceanalytics.org/audios/negative-metrics.wav'),
+                success: function(data) {
+                  alert("New Job Successfully Created!");
+                  document.getElementById('upload_progress').className = "fa fa-fw fa-check-circle text-success";
+                  document.getElementById('upload_progress2').className = "fa fa-fw fa-check-circle text-success";
+                  refresh();
+                },
+                error: function(data) {
+                    alert("Sorry, VoiceBase was unable to accept the audio recording.\nHere is the error message from the VoiceBase API:\n" + data.responseText);
+                    document.getElementById('upload_progress').className = "";
+                    document.getElementById('upload_progress2').className = "";
+                }
+              }
+              $.ajax(settings).done(function (response) {
+                console.log(response);
+              });  
+		  }
+		  
+		  </script>
+			  
+<!-- End Add Sample Recordings -->
+		  
+		  
         <!-- search -->
         <script>
           var vbsearch = document.getElementById('vbsearch');
@@ -1437,11 +1518,13 @@
               "contentType": false,
               success: function(data) {
                 window.vbresponse = data;
-				display('0');
+				//display('0');
                 document.getElementById(`btmessage`).innerHTML = '<span style="color:green">Bearer Token Accepted Successfully</span><br /><a href="javascript:login(&quot;hide&quot;);">Continue to View Jobs</a>';
                 window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[0].mediaId}, document.querySelector(`#dasplayer`)).render();
                 printjobcontainers();
                 printjobs();
+				window.recentnob = 0;
+				display('0');
                 function poll() {
                   //j++;
                   //k = j % window.globalpagetotal;
@@ -1826,6 +1909,7 @@
 		  
         <script>
           function display(nob) {
+			  
             window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[nob].mediaId}, document.querySelector(`#dasplayer`)).render();
  
             var settings = {
@@ -1853,6 +1937,11 @@
 		  
 		  //var theJSON = JSON.stringify(window.vbmediaidresponse);
           //document.getElementById('JSONResults').innerHTML = '<span>' + theJSON + '</span>';
+		  
+		  document.getElementById('list-group-item' + nob).style.backgroundColor = "lightblue";
+		  document.getElementById('list-group-item' + window.recentnob).style.backgroundColor = "white";
+		  
+		  window.recentnob = nob;
 		  
 	  }
         </script>
