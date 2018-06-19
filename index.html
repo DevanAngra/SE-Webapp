@@ -2104,6 +2104,7 @@
 		              var settings = {
 		                "crossDomain": true,
 		                "url": `https://apis.voicebase.com/v3/definition/spotting/groups/${kwlistname}`,
+		                //"url": `http://mattvoicebase.proxy.beeceptor.com`,
 		                "method": "PUT",
 		                "headers": {
 		                  "accept": "application/json",
@@ -2340,11 +2341,11 @@
 
 	    /* Keyword Spotting List */
 
-	    var eleKWList = document.getElementById('kwlist');
+	    var eleKWList = document.getElementById('kwlist').value;
 	    var kwList;
 
 	    if (eleKWList != '') {
-	      kwlist = ',"spotting": {"groups": [ { "groupName": "$(kwlist)"}]}';
+	      kwlist = ',"spotting": {"groups": [ { "groupName": "' + eleKWList + '"}]}';
 	    } else {
 	        kwlist = '';
 	    }
@@ -2407,7 +2408,7 @@
 	    if (eleCallbackUrl != '') {
 	        callbackconfig =  ',"publish": {"callbacks": [{"url" : " + ' + eleCallbackUrl + '","method" : "' + callbackmethod + '","include" : [ "transcript", "knowledge", "metadata", "prediction", "streams", "spotting" ]}]}';}
 
-	    window.customconfiguration = '{' + speechModelconfig+ ' , "prediction": { ' + detectorsconfig + predictivemodel +'},' + '"transcript":{' + formatting2 + swear + '},"vocabularies": [' + customvocabconfig + '],' + stereo2 + knowledge + callbackconfig + '}';
+	    window.customconfiguration = '{' + speechModelconfig+ ' , "prediction": { ' + detectorsconfig + predictivemodel +'},' + '"transcript":{' + formatting2 + swear + '},"vocabularies": [' + customvocabconfig + '],' + stereo2 + knowledge + kwlist + callbackconfig + '}';
 
         document.getElementById("configuration_advanced_json").value = window.customconfiguration;
 
