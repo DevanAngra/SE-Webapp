@@ -129,7 +129,7 @@
       <div style="height: 10px"></div>
       <h3 class="sidebar-title">Custom Vocab</h3>
       <p>Create and edit custom voabulary lists. </p>
-      <button class="btn btn-default" data-toggle="modal" data-target="#CustomVocab" id="CustomVocabButton">
+      <button class="btn btn-default" data-toggle="modal" data-target="#CustomVocab" id="CustomVocabButton" onclick="vocablistdisplay()">
         <i class="fa fa-plus"></i>
         Create Custom Vocab
       </button>
@@ -140,7 +140,7 @@
       <div style="height: 10px"></div>
       <h3 class="sidebar-title">Keyword Spotting</h3>
       <p>Create and edit keyword spotting lists. </p>
-      <button class="btn btn-default" data-toggle="modal" data-target="#KeywordSpotting" id="KeywordSpottingButton">
+      <button class="btn btn-default" data-toggle="modal" data-target="#KeywordSpotting" id="KeywordSpottingButton" onclick="keywordlistdisplay()">
         <i class="fa fa-plus"></i>
         Create Keyword List
       </button>
@@ -714,13 +714,16 @@
 				            </div>
 							
 							<input type="submit" class="btn btn-success" value="Create List">
-
+		            </div>
+					</form>
+					<div style="height:10px"></div>
+					<div>Your Vocabulary Lists:</div>
+					<div>*Not in chronological order</div>
+					<div id="VocabLists" style="height:400px; overflow-y: scroll"></div>
 		            </div>
 		            </div>
-		            </div>
-		          </form>
 		      </div>
-			
+			  
 			<!-- CV section end -->
 	
 	
@@ -775,9 +778,13 @@
 							<input type="submit" class="btn btn-success" value="Create List">
 
 		            </div>
+					</form>
+					<div style="height:10px"></div>
+					<div>Your Keyword Spotting Lists:</div>
+					<div>*Not in chronological order</div>
+					<div id="KeywordLists" style="height:400px; overflow-y: scroll"></div>
 		            </div>
 		            </div>
-		          </form>
 		      </div>
 			  
 			<!-- KW section end -->
@@ -1092,10 +1099,46 @@
 
         <!-- Show Job by MediaId -->
         <script>
+
+            //window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[nob].mediaId}, document.querySelector(`#dasplayer`)).render();
+			
           var mediaIdform = document.getElementById('vbMediaId');
           mediaIdform.onsubmit = function (m) {
             m.preventDefault();
+			
+			var medialookupid = document.getElementById('vbMediaIdField').value;
+			
             window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: document.getElementById('vbMediaIdField').value}, document.querySelector(`#dasplayer`)).render();
+ 
+
+            var settings = {
+              "crossDomain": true,
+              "url": `https://apis.voicebase.com/v3/media/${medialookupid}`,
+              "method": "GET",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": false,
+              success: function(data) {
+                window.vbmediaidresponse = data;
+	  		    var theJSON = JSON.stringify(window.vbmediaidresponse, undefined, 2);
+	            document.getElementById('JSONResults').innerHTML = '<span>' + theJSON + '</span>';
+				},
+              error: function(nodata) {
+                alert("Sorry, the bearer token was not accepted.")
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+		  
+		  //var theJSON = JSON.stringify(window.vbmediaidresponse);
+          //document.getElementById('JSONResults').innerHTML = '<span>' + theJSON + '</span>';
+		  
+		  document.getElementById('list-group-item' + window.recentnob).style.backgroundColor = "white";
+			
           }
         </script>
 
@@ -1104,6 +1147,37 @@
           mediaIdform2.onsubmit = function (m) {
             m.preventDefault();
             window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: document.getElementById('vbMediaIdField2').value}, document.querySelector(`#dasplayer2`)).render();
+			
+			var medialookupid = document.getElementById('vbMediaIdField2').value;
+			
+            var settings = {
+              "crossDomain": true,
+              "url": `https://apis.voicebase.com/v3/media/${medialookupid}`,
+              "method": "GET",
+              "headers": {
+                "accept": "application/json",
+                "Authorization": `Bearer ${bearertoken}`
+              },
+              "processData": false,
+              "contentType": false,
+              success: function(data) {
+                window.vbmediaidresponse = data;
+	  		    var theJSON = JSON.stringify(window.vbmediaidresponse, undefined, 2);
+	            document.getElementById('JSONResults2').innerHTML = '<span>' + theJSON + '</span>';
+				},
+              error: function(nodata) {
+                alert("Sorry, the bearer token was not accepted.")
+              }
+            }
+            $.ajax(settings).done(function (response) {
+              console.log(response);
+            });
+			
+			
+			
+			
+			
+			
           }
         </script>
 
@@ -1973,7 +2047,67 @@
 		  };
 		  </script>
 
-<!-- bwd sbs -->
+<!-- bwd custom vocabulary list -->
+		  
+		  <script>
+	          function vocablistdisplay() {
+		  
+	              var settings = {
+	                "crossDomain": true,
+	                "url": `https://apis.voicebase.com/v3/definition/vocabularies`,
+	                "method": "GET",
+	                "headers": {
+	                  "accept": "application/json",
+	                  "Authorization": `Bearer ${bearertoken}`
+	                },
+	                "processData": false,
+	                "contentType": false,
+	                success: function(data) {
+	                 window.vbmediaidresponse = data;
+					 
+					 i = 0;
+					 var vocabularies = "";
+					 
+				     var count = Object.keys(window.vbmediaidresponse.vocabularies).length;
+					 alert(count);
+					 
+					 
+					 var alllists = "";
+					 
+					 a = 0;
+					 while (i < count) {
+				    alllists = alllists + '<div id="VocabListName' + a + '"></div><div id="VocabListKeywords' + a + '"></div><div style="height: 10px"></div>';
+					i++;
+					a++;*/
+					}
+	  	            document.getElementById('VocabLists').innerHTML = alllists;
+					
+					i = 0;
+								 
+					 while (i < count) {
+						 if (vbmediaidresponse.vocabularies[i].terms[0].term) {
+	 		  	            document.getElementById('VocabListName' + i).innerHTML = i + ') ' + vbmediaidresponse.vocabularies[i].vocabularyName + ':';
+	 		  	            document.getElementById('VocabListKeywords' + i).innerHTML = vbmediaidresponse.vocabularies[i].terms[0].term;
+							 //var groups = groups + vbmediaidresponse.groups[i].keywords[i];
+							 i++;
+						 } else {
+							 i++;
+						 }
+					 }
+
+	  				},
+	                error: function(nodata) {
+	                  alert("Sorry, the bearer token was not accepted.")
+	                }
+	              }
+	              $.ajax(settings).done(function (response) {
+	                console.log(response);
+	              });
+	  
+		  
+			  }
+		  </script>
+			  
 		  
 		  <script>
 			  
@@ -2068,7 +2202,69 @@
 			  </script>
 			  
 			  
+			
+			
+			<!-- BWD Keyword Spotting List -->  
 			  
+			  <script>
+		          function keywordlistdisplay() {
+			  
+		              var settings = {
+		                "crossDomain": true,
+		                "url": `https://apis.voicebase.com/v3/definition/spotting/groups`,
+		                "method": "GET",
+		                "headers": {
+		                  "accept": "application/json",
+		                  "Authorization": `Bearer ${bearertoken}`
+		                },
+		                "processData": false,
+		                "contentType": false,
+		                success: function(data) {
+		                 window.vbmediaidresponse = data;
+						 
+						 
+						 i = 0;
+						 var groups = "";
+						 
+					     var count = Object.keys(window.vbmediaidresponse.groups).length;
+						 alert(count);
+						 
+						 
+						 var alllists = "";
+						 
+						 a = 0;
+						 while (i < count) {
+					    alllists = alllists + '<div id="KeywordListName' + a + '"></div><div id="KeywordListKeywords' + a + '"></div><div style="height: 10px"></div>';
+						i++;
+						a++;
+						}
+ 		  	            document.getElementById('KeywordLists').innerHTML = alllists;
+						
+						i = 0;
+									 
+						 while (i < count) {
+							 if (vbmediaidresponse.groups[i].keywords) {
+		 		  	            document.getElementById('KeywordListName' + i).innerHTML = i + ') ' + vbmediaidresponse.groups[i].groupName + ':';
+		 		  	            document.getElementById('KeywordListKeywords' + i).innerHTML = vbmediaidresponse.groups[i].keywords;
+								 //var groups = groups + vbmediaidresponse.groups[i].keywords[i];
+								 i++;
+							 } else {
+								 i++;
+							 }
+						 }
+	
+		  				},
+		                error: function(nodata) {
+		                  alert("Sorry, the bearer token was not accepted.")
+		                }
+		              }
+		              $.ajax(settings).done(function (response) {
+		                console.log(response);
+		              });
+		  
+			  
+				  }
+			  </script>
 			  
 			  <script>
 		          var uploadform = document.getElementById('vbkwlist');
