@@ -2374,11 +2374,11 @@
 
 	    var elePCIDetect = document.getElementById('PCIdetect').value;
 	    var eleSSNDetect = document.getElementById('SSNdetect').value;
-	    //var elePIIDetect = document.getElementById('PIIdetect').value;
+	    var elePIIDetect = document.getElementById('PIIdetect').value;
 	    var eleNumbersDetect = document.getElementById('Numbersdetect').value;
 	    var PCIdetect;
 	    var SSNdetect;
-	    //var PIIdetect;
+	    var PIIdetect;
 	    var Numbersdetect;
 	    var detectorsconfig = '';
 
@@ -2409,7 +2409,7 @@
 	    var detectors = detector_arr.join('');
 	    detectors = detectors.replace(/,\s*$/, "");
 	    if (detectors != ''){
-	   // var detectors = str(Numbersdetect + SSNdetect + PIIdetect + PCIdetect);
+	    var detectors = str(Numbersdetect + SSNdetect + PIIdetect + PCIdetect);
 	    detectorsconfig = '"detectors":[' + detectors + ']';
 
 	    }
