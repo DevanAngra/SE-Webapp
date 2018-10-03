@@ -173,7 +173,7 @@
     <div class="col-md-9 content" id="col-md-9 content">
        <div><a onclick='toggleplayer()'>Player </a>| <a onclick='togglejson()'>JSON Results</a></div>
 	   <div class="JSONResults" style="position: relative; height: 0px; visibility: hidden"><div>Double Click to Select All</div><pre class="highlight" id="JSONResults" style="height: 340px; overflow-y: scroll;"></pre></div>
-        <div style="margin-top: 20px; height: 340px" id="dasplayer"></div>
+        <div style="margin-top: 20px" id="dasplayer"></div>
       <br />
 
 			<div class="modal fade" id="addRecordingModal">
@@ -396,13 +396,13 @@
 					              	  <option value="SSN">SSN Detection and Redaction</option>
 					                </select>
 					              </div>
-					              <div class="form-group">
+					              <!-- <div class="form-group">
 					                <label class="control-label">Redact Personal Identifiable Information</label>
 					                <select class="form-control auto" name="PIIdetect" id="PIIdetect">
 					              	  <option value="Off">Off</option>
 					              	  <option value="PII">PII Detection and Redaction</option>
 					                </select>
-				                </div>
+				                </div> -->
 												<p class="help-block"><small>PCI - Payment Card Information</small>
 												<br /><small>SSN - Social Security Number</small>
 												<br /><small>PII - Personal Identifiable Information</small>
@@ -1029,7 +1029,7 @@
 
        <div><a onclick='toggleplayer()'>Player </a>| <a onclick='togglejson()'>JSON Results</a></div>
 	   <div class="JSONResults" style="position: relative; height: 0px; visibility: hidden"><div>Double Click to Select All</div><pre class="highlight" id="JSONResults2" style="height: 340px; overflow-y: scroll;"></pre></div>
-        <div style="margin-top: 20px; height: 340px" id="dasplayer2"></div>
+        <div style="margin-top: 20px" id="dasplayer2"></div>
 
        <div style="height: 35px"></div>
 
@@ -1410,7 +1410,7 @@
           }
         </script>
 
-
+,"redactor": {"transcript":{"replacement" : "[redacted]"},"audio": {"tone": 270,"gain": 0.5}}}
 <!-- Add Sample Reordings -->
 		  <script>
 		  
@@ -1424,7 +1424,7 @@
 				   configuration = '';
 			   } else if (number == 2) {
       				formData.append('mediaUrl', 'https://sewebapp.bigvoiceanalytics.org/audios/PCIStereoHenry.mp3');
-   					formData.append('configuration', '{"speechModel" : {"language" : "en-US","features": ["advancedPunctuation"]} , "prediction": { "detectors":[{"detectorName":"PCI"}]},"transcript":{"formatting":{"enableNumberFormatting": false},"contentFiltering": {"enableProfanityFiltering": false}},"vocabularies": [],"ingest":{"stereo":{"left":{"speakerName": "Caller"},"right": {"speakerName": "Agent"}}},"knowledge": {"enableDiscovery": true,"enableExternalDataSources" : true}}');
+   					formData.append('configuration', '{"speechModel" : {"language" : "en-US","features": ["advancedPunctuation"]} , "prediction": { "detectors":[{"detectorName":"PCI","redactor": {"transcript":{"replacement" : "[redacted]"},"audio": {"tone": 270,"gain": 0.5}}}]},"transcript":{"formatting":{"enableNumberFormatting": false},"contentFiltering": {"enableProfanityFiltering": false}},"vocabularies": [],"ingest":{"stereo":{"left":{"speakerName": "Caller"},"right": {"speakerName": "Agent"}}},"knowledge": {"enableDiscovery": true,"enableExternalDataSources" : true}}');
 					formData.append('metadata', '{"title":"Payment Card Information","extended":{}}')
 			   } else {
 				   i++;
@@ -2385,22 +2385,22 @@
 
 
 	    if (elePCIDetect != 'Off') {
-	       PCIdetect = '{"detectorName":"' + elePCIDetect + '"},';
+	       PCIdetect = '{"detectorName":"' + elePCIDetect + '","redactor": {"transcript":{"replacement" : "[redacted]"},"audio": {"tone": 270,"gain": 0.5}}}';
 	    } else {
 	        PCIdetect = '';
 	    }
 	    if (elePIIDetect != 'Off') {
-	        PIIdetect = '{"detectorName":"' + elePIIDetect + '"},';
+	        PIIdetect = '{"detectorName":"' + elePIIDetect + '","redactor": {"transcript":{"replacement" : "[redacted]"},"audio": {"tone": 270,"gain": 0.5}}}';
 	    } else {
 	        PIIdetect = '';
 	    }
 	    if (eleSSNDetect != 'Off') {
-	      SSNdetect = '{"detectorName":"' + eleSSNDetect + '"},';
+	      SSNdetect = '{"detectorName":"' + eleSSNDetect + '","redactor": {"transcript":{"replacement" : "[redacted]"},"audio": {"tone": 270,"gain": 0.5}}}';
 	    } else {
 	        SSNdetect = '';
 	    }
 	    if (eleNumbersDetect != 'Off') {
-	      Numbersdetect = '{"detectorName":"' + eleNumbersDetect + '"},';
+	      Numbersdetect = '{"detectorName":"' + eleNumbersDetect + '","redactor": {"transcript":{"replacement" : "[redacted]"},"audio": {"tone": 270,"gain": 0.5}}}';
 	    } else {
 	        Numbersdetect = '';
 	    }
