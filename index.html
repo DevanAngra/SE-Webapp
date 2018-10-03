@@ -396,13 +396,13 @@
 					              	  <option value="SSN">SSN Detection and Redaction</option>
 					                </select>
 					              </div>
-					              <!-- <div class="form-group">
+					              <div class="form-group" style="visibility: hidden; display: none">
 					                <label class="control-label">Redact Personal Identifiable Information</label>
 					                <select class="form-control auto" name="PIIdetect" id="PIIdetect">
 					              	  <option value="Off">Off</option>
 					              	  <option value="PII">PII Detection and Redaction</option>
 					                </select>
-				                </div> -->
+				                </div>
 												<p class="help-block"><small>PCI - Payment Card Information</small>
 												<br /><small>SSN - Social Security Number</small>
 												<br /><small>PII - Personal Identifiable Information</small>
@@ -2374,11 +2374,11 @@
 
 	    var elePCIDetect = document.getElementById('PCIdetect').value;
 	    var eleSSNDetect = document.getElementById('SSNdetect').value;
-	    var elePIIDetect = document.getElementById('PIIdetect').value;
+	    //var elePIIDetect = document.getElementById('PIIdetect').value;
 	    var eleNumbersDetect = document.getElementById('Numbersdetect').value;
 	    var PCIdetect;
 	    var SSNdetect;
-	    var PIIdetect;
+	    //var PIIdetect;
 	    var Numbersdetect;
 	    var detectorsconfig = '';
 
