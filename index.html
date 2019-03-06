@@ -936,7 +936,8 @@
         <span id="morejobs"></span>
 
 				<div id="thejobcontainers" class="list-group">
-					<div class="list-group-item">
+					<!-- remove this - bogus jobs when you first login.
+						<div class="list-group-item">
 						<div class="pull-left margin-right-10">
 				    	<i id="status_icon_0" class="fa fa-fw fa-refresh fa-spin text-muted"></i>
 						</div>
@@ -987,10 +988,8 @@
 			      <div class="panel-body">
 			        <div id="playerspot0"></div>
 			      </div>
-			    </div>
-
-			    <!-- i think -->
-			    <div class="list-group-item">
+			    </div> 
+				<div class="list-group-item">
 						<div class="pull-left margin-right-10">
 				    	<i id="status_icon_0" class="fa fa-fw fa-refresh fa-spin text-muted"></i>
 						</div>
@@ -1010,9 +1009,7 @@
 						    2018-03-06T10:24:56.568Z
 						  </p>
 				    </div>
-					</div>
-					<!-- i think -->
-
+					</div> bogus remove -->
 			    <div class="collapse" id="voicemail-2" aria-expanded="false">
 			      <div class="panel-body">
 			        <div id="playerspot0"></div>
@@ -1594,6 +1591,9 @@
 				//display('0');
                 document.getElementById(`btmessage`).innerHTML = '<span style="color:green">Bearer Token Accepted Successfully</span><br /><a href="javascript:login(&quot;hide&quot;);">Continue to View Jobs</a>';
                 window.playerInstances = VoicebaseApiPlayer({token: bearertoken, mediaId: vbresponse.media[0].mediaId}, document.querySelector(`#dasplayer`)).render();
+                if (vbresponse.media.length < window.globalpagetotal) {
+                    window.globalpagetotal = vbresponse.media.length;
+                };
                 printjobcontainers();
                 printjobs();
 				window.recentnob = 0;
@@ -1691,6 +1691,10 @@
               success: function(data) {
                 window.vbresponse = data;
                 document.getElementById(`btmessage`).innerHTML = '<span style="color:green">Bearer Token Accepted Successfully</span><br /><a href="javascript:login(&quot;hide&quot;);">Continue to View Jobs</a>';
+				//here bwd
+				
+				window.globalpagetotal = vbresponse.media.length;
+                printjobcontainers();
                 printjobs();
                 function poll() {
                   //j++;
@@ -1705,7 +1709,7 @@
                     window.vbresponse = data;
                     i = 0;
                     e = 0;
-                    while (i < window.globalpagetotal) {
+                    while (i < window.globalpagetotal && vbresponse.media[i].mediaId !== undefined) {
                       if (vbresponse.media[i].metadata.externalId == "star") {
                         document.getElementById(`important_status_${i}`).className = "fa fa-star";
                       } else {
@@ -1740,6 +1744,7 @@
             $.ajax(settings).done(function (response) {
               console.log(response);
             });
+			//document.getElementById('addRecordingModal').style.visibility ='hidden';
           }
         </script>
 
@@ -1779,7 +1784,6 @@
           function printjobs() {
                 var i = 0;
                 while (i < window.globalpagetotal) {
-                  /*document.getElementById(`hereid${i}`).innerHTML = '<strong>MediaId</strong> ' + '<span style="color:green">' + vbresponse.media[i].mediaId + '</span><br />' + '      <strong>MetadataTitle:</strong> ' + '<span style="color:green">' + vbresponse.media[i].metadata.title + '</span>' + '      <strong>Time:</strong> ' + '<span style="color:green">' + vbresponse.media[i].dateCreated + '</span>';*/
                   if (vbresponse.media[i].metadata.externalId == "star") {
                   document.getElementById(`important_status_${i}`).className = "fa fa-star";
                   } else {
