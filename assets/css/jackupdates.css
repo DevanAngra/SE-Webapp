@@ -114,7 +114,6 @@
 
 
 
-
 /*
 	UPLOAD OPTIONS
 */
@@ -140,4 +139,16 @@
 	border-color: transparent;
 	background: transparent;
 	border-bottom-color: #2e6da4;
+}
+
+.btn-success {
+	background-color: #73C232;
+	border-color: #73C232;
+}
+
+#jsonResultsTab .help-block {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    margin: 0;
 }

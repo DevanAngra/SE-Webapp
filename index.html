@@ -69,35 +69,39 @@
   </div>
 </nav>
 
-      <div id="popupbox" style="padding-bottom: 300px; padding-top: 50px; padding-left: 100px; padding-right: 100px; height: 100%; z-index: 999; position: absolute; top: 0px; background-color: #fff; width: 100%" class="panel panel-default panel-accordion">
-        <div class="panel-heading">
-          <h3 class="panel-title"><strong>Account Credentials</strong></h3>
-          <p class="text-muted"><small>Submit your bearer token to populate the app:</small></p>
+      <div id="popupbox" style="padding-bottom: 300px; padding-top: 20%; padding-left: 100px; padding-right: 100px; height: auto; z-index: 999; position: absolute; top: 0px; text-align: center; background-color: #012844; justify-content: center; border: none; width: 100%" class="panel panel-default panel-accordion">
+		  <div class="modal-dialog">
+		  <img style="height: auto; margin-bottom: 30px" src="assets/images/logo.png">
           <form name="vbbearer" id="vbbearer" method="post" enctype="multipart/form-data" action="">
             <div class="input-group">
-              <input type="password" class="form-control" name="bearertoken" id="bearertoken" value="" placeholder="">
+              <input placeholder="Submit your bearer token to populate the app" type="password" class="form-control input-lg" name="bearertoken" id="bearertoken" value="" placeholder="">
               <span class="input-group-btn">
-                      <button class="btn btn-default" type="submit">Submit</button>
+                      <button class="btn btn-lg btn-success" type="submit">Submit</button>
             			  </span>
             </div>
           </form>
           <span id="btmessage"></span>
-        </div>
+	  </div>
       </div>
 
 <div class="container">
   <div class="row">
-    <div class="col-md-3 sidebar" id="col-md-3 sidebar">
+    <div class="col-md-3 sidebar" id="col-md-3 sidebar" style="float: left">
       <div style="height: 10px"></div>
       <h3 class="sidebar-title">Upload Recordings</h3>
-      <p>Add new Recording to choose from a broad list of configuration options and add a new recording. You can also try our Zapier integration to setup a workflow or Postman to open our collection.</p>
+      <p class="text-muted">Add new Recording to choose from a broad list of configuration options and add a new recording. Or add sample recordings to your account with one click.</p>
       <button class="btn btn-success" data-toggle="modal" data-target="#addRecordingModal">
         <i class="fa fa-plus"></i>
         Add new Recording
       </button>
-	  
-      <br />
-<div style="height: 5px"></div>
+	  <div style="height: 5px"></div>
+      <button class="btn btn-default" data-toggle="modal" data-target="#sampleRecordings">
+        <i class="fa fa-plus"></i>
+        Sample Recordings
+      </button>
+	  <div style="height: 5px"></div>
+      <p class="text-muted">You can also try our Zapier integration to setup a workflow or Postman to open our collection.</p>
+<!--<div style="height: 5px"></div>
        <a href="https://zapier.com/developer/invite/91902/dbbf39a2a194ccaea7803c36a7f49e4f/"><button style="width: 123px; height: 30px; padding: 0px; margin-bottom: 5px" class="btn btn-default">
         <i class="fa"></i>
         <img style="position: relative; top: -2px; left: -2px;" src="zapier-logo.png">
@@ -106,15 +110,18 @@
       
        <button class="btn btn-default postman-run-button" data-postman-action="collection/import" data-postman-var-1="1758449-fc598afd-d748-e3ee-40da-61a69e2fc3cb-713dFur">
         <i class="fa"></i>
-        <!--Upload with Postman <img src="postman-icon.png">-->
-      </button>
+      </button> -->
+	  <a href="https://zapier.com/developer/invite/91902/dbbf39a2a194ccaea7803c36a7f49e4f/" class="btn btn-default">
+	  				<img src="assets/images/zapier.svg" height="18">
+	  			</a>
+	  
+	  <button class="btn btn-default postman-run-button" data-postman-action="collection/import" data-postman-var-1="1758449-fc598afd-d748-e3ee-40da-61a69e2fc3cb-713dFur"></button>
+	  
+	  <!--<button class="btn btn-default" style="background-color: #fff!important" data-postman-action="collection/import" data-postman-var-1="1758449-fc598afd-d748-e3ee-40da-61a69e2fc3cb-713dFur">
+	  				<img src="assets/images/postman.svg" height="12">
+	  			</button> -->
 	  
 	  <br />
-	  <div style="height: 5px"></div>
-      <button class="btn btn-default" data-toggle="modal" data-target="#sampleRecordings">
-        <i class="fa fa-plus"></i>
-        Sample Recordings
-      </button>
       
       
       <!--<div class="postman-run-button" data-postman-action="collection/import" data-postman-var-1="1758449-fc598afd-d748-e3ee-40da-61a69e2fc3cb-713dFur">asd</div>-->
@@ -127,9 +134,9 @@
 	  
 	  
       <div style="height: 10px"></div>
-      <h3 class="sidebar-title">Custom Vocab</h3>
-      <p>Create and edit custom voabulary lists. </p>
-      <button class="btn btn-default" data-toggle="modal" data-target="#CustomVocab" id="CustomVocabButton" onclick="vocablistdisplay()">
+      <h4 class="sidebar-title">Custom Vocab</h4>
+      <p class="text-muted">Create and edit custom voabulary lists. </p>
+      <button style="font-size: 12px" class="btn btn-default" data-toggle="modal" data-target="#CustomVocab" id="CustomVocabButton" onclick="vocablistdisplay()">
         <i class="fa fa-plus"></i>
         Create Custom Vocab
       </button>
@@ -138,9 +145,9 @@
       <div style="height: 5px"></div>
 	  
       <div style="height: 10px"></div>
-      <h3 class="sidebar-title">Keyword Spotting</h3>
-      <p>Create and edit keyword spotting lists. </p>
-      <button class="btn btn-default" data-toggle="modal" data-target="#KeywordSpotting" id="KeywordSpottingButton" onclick="keywordlistdisplay()">
+      <h4 class="sidebar-title">Keyword Spotting</h4>
+      <p class="text-muted">Create and edit keyword spotting lists. </p>
+      <button style="font-size: 12px" class="btn btn-default" data-toggle="modal" data-target="#KeywordSpotting" id="KeywordSpottingButton" onclick="keywordlistdisplay()">
         <i class="fa fa-plus"></i>
         Create Keyword List
       </button>
@@ -150,9 +157,9 @@
 
 
       <div style="height: 10px"></div>
-      <h3 class="sidebar-title">MediaId Lookup</h3>
-      <p>Open jobs by MediaId. </p>
-      <button class="btn btn-default collapsed" data-toggle="collapse" data-target="#ByMediaId" id="ByMediaIdButton">
+      <h4 class="sidebar-title">MediaId Lookup</h4>
+      <p class="text-muted">Open jobs by MediaId. </p>
+      <button style="font-size: 12px" class="btn btn-default collapsed" data-toggle="collapse" data-target="#ByMediaId" id="ByMediaIdButton">
         <i class="fa fa-plus"></i>
         Show MediaId Search
       </button>
@@ -160,19 +167,34 @@
       <hr>
       <div style="height: 5px"></div>
 
-      <div style="height: 10px"></div>
+      <!--<div style="height: 10px"></div>
       <h3 class="sidebar-title">Version Notes</h3>
       <p>Read notes about the version of this app. </p>
       <button class="btn btn-default collapsed" data-toggle="collapse" data-target="#versionNotes" id="versionNotesButton">
         <i class="fa fa-plus"></i>
         Read
-      </button>
+      </button> -->
 
     </div>
-
-    <div class="col-md-9 content" id="col-md-9 content">
-       <div><a onclick='toggleplayer()'>Player </a>| <a onclick='togglejson()'>JSON Results</a></div>
-	   <div class="JSONResults" style="position: relative; height: 0px; visibility: hidden"><div>Double Click to Select All</div><pre class="highlight" id="JSONResults" style="height: 340px; overflow-y: scroll;"></pre></div>
+	
+	
+	
+<!-- BWD -->
+		
+	    <div style="height: 42px">
+		<ul class="nav nav-tabs" style="float: left; padding: 0px; height: 42px; margin-left: 10px">
+		        <li class="active"><a data-toggle="tab" href="#playerTab" onclick='toggleplayer()'>Player</a></li>
+		        <li><a data-toggle="tab" href="#jsonResultsTab" onclick='togglejson()'>JSON results</a></li>
+		      </ul>
+		  </div>
+			  <!--<div style="clear: both"></div>-->
+    <div class="col-md-9 content" id="col-md-9 content" style="float: left">
+			  
+       <!--<div><a onclick='toggleplayer()'>Player </a>| <a onclick='togglejson()'>JSON Results</a></div>-->
+	   <div class="JSONResults" id="jsonResultsTab" style="position: absolute; width: 100%; height: 0px; margin-top: 20px; visibility: hidden"><small class="help-block" id="help-block-double-click">Double Click to Select All</small>
+<pre class="highlight" id="JSONResults" style="height: 340px; overflow-y: scroll; margin-right: 25px"></pre></div>
+			   
+			   
         <div style="margin-top: 20px" id="dasplayer"></div>
       <br />
 
@@ -203,8 +225,17 @@
 
 		            <hr>
 
-		            <center><a data-toggle="tab" onclick="disableCustomConfig();" href="#optionsSimple">Simple Uploader</a>   |   <a data-toggle="tab" href="#optionsAdvanced" onclick="loadFields();loadMetadata('advanced');setCustomConfig();">Advanced Uploader</a></center>
-		            <br />
+
+<!-- BWD -->
+						<ul class="nav nav-tabs" style="float: left; padding: 0px; height: 42px; margin-left: 10px">
+						        <li class="active"><a data-toggle="tab" href="#optionsSimple" onclick="disableCustomConfig();">Simple Uploader</a></li>
+						        <li><a data-toggle="tab" href="#optionsAdvanced" onclick="loadFields();loadMetadata('advanced');setCustomConfig();">Advanced Uploader</a></li>
+						      </ul>
+							  
+						<!--<a data-toggle="tab" onclick="disableCustomConfig();" href="#optionsSimple">Simple Uploader</a>   |   <a data-toggle="tab" href="#optionsAdvanced" onclick="loadFields();loadMetadata('advanced');setCustomConfig();">Advanced Uploader</a>-->
+					<br />
+					<hr />
+					<br />
 
 		            <div class="tab-content">
 		            <div class="tab-pane fade in active" id="optionsSimple">
@@ -438,6 +469,12 @@
 				                  <label>
 				                    <input name="voicefeatures" id="voicefeatures" type="checkbox" value='enabled'>
 				                    Voice Features (Energy, Pitch and Tone measurements per word)
+				                  </label>
+				                </div>
+				                <div class="checkbox">
+				                  <label>
+				                    <input name="vbql" id="vbql" type="checkbox" value='enabled'>
+				                    Index results in VBQL
 				                  </label>
 				                </div>
 								</div>
@@ -1023,10 +1060,11 @@
 <!-- Side by Side bwd sbs second panel -->
 			<div class="col-md-10 content" id="col-md-10 content" style="height: 0px; display: none">
 
-
-       <div><a onclick='toggleplayer()'>Player </a>| <a onclick='togglejson()'>JSON Results</a></div>
-	   <div class="JSONResults" style="position: relative; height: 0px; visibility: hidden"><div>Double Click to Select All</div><pre class="highlight" id="JSONResults2" style="height: 340px; overflow-y: scroll;"></pre></div>
-        <div style="margin-top: 20px" id="dasplayer2"></div>
+       <!--<div><a onclick='toggleplayer()'>Player </a>| <a onclick='togglejson()'>JSON Results</a></div>-->
+	   
+	   <div class="JSONResults" id="jsonResultsTab" style="position: relative; height: 0px; visibility: hidden; margin-top: 20px"><small class="help-block" id="help-block-double-click2">Double Click to Select All</small><pre class="highlight" id="JSONResults2" style="height: 340px; overflow-y: scroll; margin-top: 20px"></pre></div>
+	   
+        <div id="dasplayer2"></div>
 
        <div style="height: 35px"></div>
 
@@ -1963,6 +2001,9 @@
               //document.getElementById('JSONResults').style.margin = "0px";
               document.getElementById('JSONResults').style.visibility = "hidden";
               document.getElementById('JSONResults2').style.visibility = "hidden";
+              document.getElementById('help-block-double-click').style.visibility = "hidden";
+              document.getElementById('help-block-double-click2').style.visibility = "hidden";
+			  
 
           }
         </script>
@@ -1979,6 +2020,8 @@
 		                //document.getElementById('JSONResults').style.margin = auto;
 		                document.getElementById('JSONResults').style.visibility = "visible";
 		                document.getElementById('JSONResults2').style.visibility = "visible";
+		                document.getElementById('help-block-double-click').style.visibility = "visible";
+		                document.getElementById('help-block-double-click2').style.visibility = "visible";
 		                //document.getElementById('JSONResults').style.display = block;
 
 		            }
@@ -2573,6 +2616,21 @@
 	    else {
 	      swear = '"contentFiltering": {"enableProfanityFiltering": false}';
 	    }
+		
+		/* vbql */
+		
+	    var eleVbql = document.getElementById('vbql').checked;
+	    var vbql;
+		var vbqlcb;
+		
+	    if (eleVbql) {
+	      vbql = ',"labs":{"voiceActivity": {"enableVoiceActivity": true}}';
+		  vbqlcb = "true";
+	  }
+	    else {
+	      vbql = ',"labs":{"voiceActivity": {"enableVoiceActivity": false}}';
+		  vbqlcb = "false";
+	    }
 
 	    /* Number Formatting */
 
@@ -2604,17 +2662,31 @@
 	    var eleCallbackUrl = document.getElementById('callbackurl').value;
 	    var callbackconfig = '';
 
+/*
 	    if (eleCallbackUrl != '') {
-	        callbackconfig =  ',"publish": {"callbacks": [{"url" : " + ' + eleCallbackUrl + '","method" : "' + callbackmethod + '","include" : [ "transcript", "knowledge", "metadata", "prediction", "streams", "spotting" ]}]}';}
+	        callbackconfig =  ',"publish": {"enableAnalyticIndexing" : ' + vbqlcb + ', "callbacks": [{"url" : " + ' + eleCallbackUrl + '","method" : "' + callbackmethod + '","include" : [ "transcript", "knowledge", "metadata", "prediction", "streams", "spotting" ]}]}';}
 
-	    window.customconfiguration = '{' + speechModelconfig+ ' , "prediction": { ' + detectorsconfig + predictivemodel +'},' + '"transcript":{' + formatting2 + swear + '},"vocabularies": [' + customvocabconfig + '],' + stereo2 + knowledge + kwlist + callbackconfig + '}';
+	    window.customconfiguration = '{' + speechModelconfig+ ' , "prediction": { ' + detectorsconfig + predictivemodel +'},' + '"transcript":{' + formatting2 + swear + '},"vocabularies": [' + customvocabconfig + '],' + stereo2 + knowledge + kwlist + vbql + callbackconfig + '}';
 
         document.getElementById("configuration_advanced_json").value = window.customconfiguration;
 
         document.getElementById("configuration").value = window.customconfiguration;
 
 	    }
+*/
+	    if (eleCallbackUrl != '') {
+	        callbackconfig =  ',"publish": {"enableAnalyticIndexing" : ' + vbqlcb + ', "callbacks": [{"url" : "' + eleCallbackUrl + '","method" : "' + callbackmethod + '","include" : [ "transcript", "knowledge", "metadata", "prediction", "streams", "spotting" ]}]}';
+		} else {
+	        callbackconfig =  ',"publish": {"enableAnalyticIndexing" : ' + vbqlcb + '}';
+		}
 
+	    window.customconfiguration = '{' + speechModelconfig+ ' , "prediction": { ' + detectorsconfig + predictivemodel +'},' + '"transcript":{' + formatting2 + swear + '},"vocabularies": [' + customvocabconfig + '],' + stereo2 + knowledge + kwlist + vbql + callbackconfig + '}';
+
+        document.getElementById("configuration_advanced_json").value = window.customconfiguration;
+
+        document.getElementById("configuration").value = window.customconfiguration;
+	}
+		
 	    </script>
 
 	    <script>
